@@ -546,7 +546,7 @@ class HabitListView(ListView):
     def get_queryset(self):
         print('get_queryset_HabitListView')
         queryset = Habit.objects.filter(created_by=self.request.user.id)
-        print(queryset)
+        print(self.request.user.id)
         return queryset
 
     # def get_context_data(self, **kwargs):
