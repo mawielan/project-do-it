@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+  {% load staticfiles %}
+  <link rel="stylesheet" type="text/css" href="{% static 'habits/css/style.css' %}" />
+
+{% endblock %}
+
+
+
+{% block body %}
+<div id="section-container">
+  <!-- {% if habits %} -->
+  <ul class="sort">
+    {% for habit in habits|dictsort:"priority" %}
+    <li id="habit_{{habit.id}}" class="custom-list-item">
+      <button draggable=true id="accordion_{{habit.id}}" class="accordion custom-accordion">
+        <div class="media">
+          <div class="media-body">
+            <h4 class="media-heading custom-media-heading">{{habit.title}}</h4>
+          </div>
+          <div class="media-right media-middle">
+            {% if habit.image_url %}
+            <img id="overview-image" class="media-object" src="{{habit.image_url}}" width=75 height=75>
+            {% endif %}
+          </div>
+        </div>
+      </button>
+      {% if habit.id == habitToDelete.id %}
+      <div id="panel_{{habit.id}}"class="panel">
+        <div class="container">
+          <h2>Are your sure?</h2>
+          <p>
+            Are you sure you want to delete habit: "{{ habit.title }}"?
+          <form method="post">
+            {% csrf_token %}
+            <div id="{{habitToDelete.id}}">
+              <input id="delete-habit-btn" class="btn btn-danger" type="submit" value="Yes, I'm sure" />
+              <button type="button" onclick="takeMeToOverview()" id="no-delete-habit-btn" class="btn btn-default">No, take me back</button>
+            </div>
+          </form>
+        </div>
+      </div> <!-- end panel -->
+      {% else %}
+      <div id="panel_{{habit.id}}"class="panel">
+        <br>
+        <button type="button" class="btn btn-default icon-right" aria-label="Left Align">
+          <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
+        </button>
+
+        <div class="btn-group icon-right">
+          <button type="button" class="btn btn-default dropdown-toggle icon-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-share-alt fa-2x" aria-hidden="true"></i>
+          </button>
+          <div id="dropdown-menu" class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'tweet_habit' habit.id %}"><i id="share-option" class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+            <a class="dropdown-item" href="{% url 'post_habit' habit.id %}"><i id="share-option" class="fa fa-facebook fa-2x" aria-hidden="true"></i></a>
+            <a class="dropdown-item" href="{% url 'gplus_habit' habit.id %}"><i id="share-option" class="fa fa-google-plus fa-2x" aria-hidden="true"></i></a>
+            <a class="dropdown-item" href="{% url 'mail_habit' habit.id %}"><i id="share-option" class="fa fa-envelope fa-2x" aria-hidden="true"></i></a>
+          </div>
+        </div>
+        <p class="custom-font-size-20-bold">{{habit.trigger}}...</p>
+        <p class="custom-font-size-17">&nbsp&nbsp&nbsp&nbsp{{habit.existingroutine}}</p>
+        <p class="custom-font-size-20-bold">I will...</p>
+        <p class="custom-font-size-17">&nbsp&nbsp&nbsp&nbsp{{habit.targetbehavior}}</p>
+
+        <br>
+        <br>
+
+
+        <div class="container">
+          <div id="section-row" class="row">
+            <div class="col">
+              <a id="section-icon-bottom" class="btn btn-default" aria-label="Left Align" href="{% url 'delete_habit' habit.pk %}">
+                <i class="fa fa-trash fa-2x" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div class="col">
+              <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">
+                <i class="fa fa-toggle-on fa-2x" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="col">
+              <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">
+                <i class="fa fa-comments fa-2x" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="col">
+              <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">
+                <i class="fa fa-comment fa-2x" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div> <!-- end panel -->
+
+      {% endif %}
+    </li>
+
+    {% endfor %}
+  </ul>
+  <!-- {% endif %} -->
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'habits/js/delete-habit.js' %}"></script>
+{% endblock %}

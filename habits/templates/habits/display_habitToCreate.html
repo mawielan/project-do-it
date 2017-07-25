@@ -1,0 +1,212 @@
+
+{% extends 'base.html' %}
+
+
+{% block head %}
+
+  {% load staticfiles %}
+  <link rel="stylesheet" type="text/css" href="{% static 'habits/css/style.css' %}" />
+
+{% endblock %}
+
+{% block title %}Complete creation{% endblock %}
+
+{% block button_right_corner %}
+<button id="save-habit-icon" class="btn btn-default"> <i class="fa fa-chevron-right fa-2x" aria-hidden="true"></i> </button>
+{% endblock %}
+
+{% block body %}
+<div id="section-container">
+  <ul class="sort">
+
+    <!-- HabitToCreate -->
+    <li class="custom-list-item">
+
+        <button draggable=true id="id_habitToCreate" class="accordion custom-accordion">
+          <div class="media">
+            <div class="media-body">
+              <input id="habit-title" type="text" class="media-heading custom-media-heading-input"></input>
+            </div>
+            <div class="media-right media-middle">
+              <!-- {% if habitToCreate.image_url %}
+              <img id="overview-image" class="media-object" src="{{habit.image_url}}" width=75 height=75>
+              {% else %}
+              <img id="overview-image" class="media-object" src="/media/habit_image/no_image_placeholder.png" width=75 height=75>
+              {% endif %} -->
+              <img id="create-habit-img" class="media-object" src="/media/habit_image/no_image_placeholder.png" width=75 height=75>
+
+              <form id="upload-image-form" enctype="multipart/form-data" method="POST" >
+                <!-- action="{% url 'upload_habit_image' %}" method="POST" -->
+                {% csrf_token %}
+                <br>
+                <input id="id-image" type="file" class="" name="image" hidden>
+                <input id="id-upload-habit-image" class="btn btn-default" type="submit" value="Upload image" hidden/>
+                <br>
+                <!-- <input id="id-upload-habit-image" class="btn btn-default" type="submit" value="Upload image" hidden=true></input> -->
+              </form>
+            </div>
+          </div>
+
+        </button>
+        <div class="panel" style="min-height: 255px; padding-left: 0px;">
+          <br>
+          <button type="button" class="btn btn-default icon-right" aria-label="Left Align">
+            <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
+          </button>
+
+          <div class="btn-group icon-right">
+            <button type="button" class="btn btn-default dropdown-toggle icon-right"  aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-share-alt fa-2x" aria-hidden="true"></i>
+            </button>
+            <div id="dropdown-menu" class="dropdown-menu">
+              <a class="dropdown-item" ><i id="share-option" class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+              <a class="dropdown-item" ><i id="share-option" class="fa fa-facebook fa-2x" aria-hidden="true"></i></a>
+              <a class="dropdown-item" ><i id="share-option" class="fa fa-google-plus fa-2x" aria-hidden="true"></i></a>
+              <a class="dropdown-item" ><i id="share-option" class="fa fa-envelope fa-2x" aria-hidden="true"></i></a>
+            </div>
+          </div>
+
+          <p hidden=true>{{form.trigger}}</p>
+          <div id="div_trigger" style="margin-top: 10px;">
+            <button onclick="triggerActionLeft()" id="carousel-btn-left" class="btn btn-default btn-arrow"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+            <input id="carousel-input-trigger" value="Wenn ich..." disabled style="font-size: 17px; width: 215px"></input>
+            <button  onclick="triggerActionRight()" id="carousel-btn-right" class="btn btn-default btn-arrow"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+          </div>
+          <div id="div-routine" style="margin-top: 30px; margin-left: 0px;">
+            <button onclick="routineActionLeft()" id="carousel-btn-left" class="btn btn-default btn-arrow"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+            <input id="carousel-input-routine" value="{{routines.0.name}}" disabled style="width:315px"></input>
+            <button  onclick="routineActionRight()" id="carousel-btn-right" class="btn btn-default btn-arrow"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+          </div>
+          <!-- <p class="custom-font-size-20-bold">I will...</p> -->
+          <div id="div-targetbehavior" style="margin-top: 30px;">
+            <button onclick="targetbehaviorActionLeft()" id="carousel-btn-left" class="btn btn-default btn-arrow"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+            <input id="carousel-input-targetbehavior" value="{{targetbehaviors.0.name}}" disabled style="width:315px"></input>
+            <button  onclick="targetbehaviorActionRight()" id="carousel-btn-right" class="btn btn-default btn-arrow"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+          </div>
+
+
+          <!-- Hidden input fields to get content -->
+
+          <input type="submit" value="Submit" hidden="true" />
+          <select id="select-routines" hidden="true">
+            {% for routine in routines %}
+            <option value="{{routine.name}}">{{routine.name}}</option>
+            {% endfor %}
+          </select>
+          <select id="select-targetbehaviors" hidden="true">
+            {% for targetbehavior in targetbehaviors %}
+            <option value="{{targetbehavior.name}}">{{targetbehavior.name}}</option>
+            {% endfor %}
+          </select>
+
+          <div class="container">
+            <div id="section-row" class="row" style="margin-top: 36px; padding-left: 31px;">
+              <div class="col">
+                <!--trash icon is wrapped in button here to disable function -->
+                <button id="section-icon-bottom_trash_habitToCreate" class="btn btn-default" aria-label="Left Align">
+                  <i class="fa fa-trash fa-2x" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="col">
+                <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">
+                  <i class="fa fa-toggle-on fa-2x" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="col">
+                <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">
+                  <i class="fa fa-comments fa-2x" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="col">
+                <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">
+                  <i class="fa fa-comment fa-2x" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+    </li>
+  <!-- </form> -->
+    <!-- end HabitToCreate -->
+    {% if habits %}
+
+    {% for habit in habits|dictsort:"priority" %}
+    <li class="custom-list-item">
+      <button draggable=true id="accordion_{{habit.id}}" class="accordion custom-accordion">
+        <div class="media">
+          <div class="media-body">
+            <h4 class="media-heading custom-media-heading">{{habit.title}}</h4>
+          </div>
+          <div class="media-right media-middle">
+            {% if habit.image_url %}
+            <img id="overview-image" class="media-object" src="{{habit.image_url}}" width=75 height=75>
+            {% endif %}
+          </div>
+        </div>
+
+      </button>
+      <div class="panel">
+        <br>
+        <button type="button" class="btn btn-default icon-right" aria-label="Left Align">
+          <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
+        </button>
+
+        <div class="btn-group icon-right">
+          <button type="button" class="btn btn-default dropdown-toggle icon-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-share-alt fa-2x" aria-hidden="true"></i>
+          </button>
+          <div id="dropdown-menu" class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'tweet_habit' habit.id %}"><i id="share-option" class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+            <a class="dropdown-item" href="{% url 'post_habit' habit.id %}"><i id="share-option" class="fa fa-facebook fa-2x" aria-hidden="true"></i></a>
+            <a class="dropdown-item" href="{% url 'gplus_habit' habit.id %}"><i id="share-option" class="fa fa-google-plus fa-2x" aria-hidden="true"></i></a>
+            <a class="dropdown-item" href="{% url 'mail_habit' habit.id %}"><i id="share-option" class="fa fa-envelope fa-2x" aria-hidden="true"></i></a>
+          </div>
+        </div>
+        <p class="custom-font-size-20-bold">{{habit.trigger}}...</p>
+        <p class="custom-font-size-17">&nbsp&nbsp&nbsp&nbsp{{habit.existingroutine}}</p>
+        <p class="custom-font-size-20-bold">I will...</p>
+        <p class="custom-font-size-17">&nbsp&nbsp&nbsp&nbsp{{habit.targetbehavior}}</p>
+
+        <br>
+        <br>
+
+
+        <div class="container">
+          <div id="section-row" class="row">
+            <div class="col">
+              <a id="section-icon-bottom" class="btn btn-default" aria-label="Left Align" href="{% url 'delete_habit' habit.pk %}">
+                <i class="fa fa-trash fa-2x" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div class="col">
+              <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">
+                <i class="fa fa-toggle-on fa-2x" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="col">
+              <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">
+                <i class="fa fa-comments fa-2x" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="col">
+              <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">
+                <i class="fa fa-comment fa-2x" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'habits/js/create-habit.js' %}"></script>
+{% endblock %}

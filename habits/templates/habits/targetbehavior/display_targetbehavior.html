@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+
+{% load staticfiles %}
+{% block head %}
+  <link rel="stylesheet" href="{% static 'habits/style.css' %}" type="text/css">
+{% endblock %}
+
+
+{% block title %}Targetbehavior{% endblock %}
+
+{% block navbar %}
+<br>
+<br>
+<br>
+<div class="container">
+  <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div style="display:inline-flex">
+        <a href="{% url 'create_habit' %}">
+          <span style="margin: 15 0 0 30;" class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <label style="margin: 14px 0px 0px 30px; font-size:16px">Select Your Targetbehavior</label>
+      </div>
+    </div>
+
+    <div id="navbar" class="navbar-collapse collapse">
+      {% if user.is_authenticated %}
+      <ul class="nav navbar-nav navbar-right">
+        <li style="display:-webkit-box"><a href="{% url 'view_profile' %}">{{ user }}</a>
+          <img src="{{ user.userprofile.image_url }}" class="avatar img-responsive">
+          <a id="logout-glyphicon" href="{% url 'logout' %}"><span class="glyphicon glyphicon-off"></span>    </a>
+        </li>
+      </ul>
+      {% else %}
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'registration' %}">Register</a></li>
+      </ul>
+      {% endif %}
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+  </nav>
+</div>
+{% endblock %}
+
+
+{% block body %}
+<div class="container">
+  <ul class="list-group">
+    {% for targetbehavior in targetbehaviors %}
+    <li class="list-group-item" style="border:none; background-color: transparent;">
+      <form action="{% url 'select_targetbehavior' id=targetbehavior.id %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="{{targetbehavior.name}}" style="float:left; margin-top:12px; border:none; background:transparent; font-size: 14px;">
+      </form>
+      <a style="float:right" href="{% url 'delete_targetbehavior' pk=targetbehavior.pk %}" ><span style="margin-left:25px;" class="glyphicon glyphicon-trash"></span></a>
+      <a style="float:right" href="{% url 'update_targetbehavior' pk=targetbehavior.pk %}"><span class="glyphicon glyphicon-edit"></span></a>
+    </li>
+    <hr>
+    {% endfor %}
+  </ul>
+  <form action="{% url 'create_targetbehavior' %}" method="POST">
+    {% csrf_token %}
+    <button class="btn btn-success" id="id_btn_add_target_behavior">+</button>
+  </form>
+</div>
+{% endblock %}
+  <!-- <div class="container">
+    <div class="list-group">
+      {% for targetbehavior in targetbehaviors %}
+      <div class="list-group-item custom-list-group-div">
+        <form action="{% url 'select_targetbehavior' id=targetbehavior.id %}" method="POST">
+          {% csrf_token %}
+          <input type="submit" class="list-group-item custom-input-list-group-item"  value="{{targetbehavior.name}}">
+        </form>
+        <a class="list-group-item custom-input-list-group-item-edit" href="{% url 'update_targetbehavior' pk=targetbehavior.pk %}">Edit</a>
+        <a class="list-group-item custom-input-list-group-item-delete" href="{% url 'delete_targetbehavior' pk=targetbehavior.pk %}" >Delete</a>
+      </div>
+      {% endfor %}
+    </div>
+    <nav class="navbar navbar-default navbar-fixed-bottom custom-navbar-bottom">
+      <div class="container">
+        <form action="{% url 'create_targetbehavior' %}" method="POST">
+          {% csrf_token %}
+          <button class="custom-glyph-with-text">
+            <span class="glyphicon glyphicon-plus custom-glyphicons-bottom"></span><br>
+            Add new targetbehavior
+          </button>
+      </form>
+      </div>
+    </nav>
+  </div> -->

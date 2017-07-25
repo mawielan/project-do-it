@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% block head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'habits/style.css' %}" />
+{% endblock %}
+
+{% block title %}
+Habitmanagement
+{% endblock %}
+
+{% block body %}
+<div class="container">
+  {% if forms.items %}
+  {% for key,value in forms.items %}
+  <div style="display: initial" class="row">
+    <form id="id_form_status" class="custom-form-manage-habis" method="post" action="">
+      {% csrf_token %}
+      <p>{{key}}</p>
+      <p style="display:-webkit-inline-box">{{value}}</p>
+      <input type="submit" value="Apply changes" {% if not forms.items %}style="display:none"{% endif %} ></input>
+    </form>
+  </div>
+  <hr>
+  {% endfor %}
+  {% else %}
+  <p>There are no habits to manage.</p>
+  {% endif %}
+  <button form="id_form_status" class="btn btn-default" id="id_form_status">Update_all</button>
+</div>
+{% endblock %}
+
+<!--
+<div class="container">
+  {% if forms.items %}
+
+    {% for key,value in forms.items %}
+    <form class="custom-form-manage-habis" method="post" action="">
+      {% csrf_token %}
+    <div class="container custom-div-manage-habits">
+      {{key}}
+      &emsp;
+      {{value}}
+    </div>
+    <hr>
+    {% endfor %}
+
+  {% else %}
+  <p>There are no habits to manage.</p>
+  {% endif %}
+
+      <input type="submit" value="Apply changes" {% if not forms.items %}style="display:none"{% endif %} ></input>
+  </form>
+
+</div>
+-->

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% block head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'accounts/style.css' %}" />
+{% endblock %}
+
+{% block title %}Create Habit{% endblock %}
+
+{% block body %}
+  <div class="container">
+      <h2 style="text-align:center;">Registration</h2>
+      <hr>
+      <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+      
+        <div class="row">
+          <div class="col-xs-4">
+            {{field.label_tag}}
+          </div>
+          <div class="col-xs-8">
+            {{field}}
+          </div>
+        </div>
+        <br>
+        {% endfor %}
+        <button id="id_btn_register" type="submit" class="btn btn-success">Sign up</button>
+      </form>
+  </div>
+{% endblock %}

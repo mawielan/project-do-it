@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% block head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/style.css' %}" />
+{% endblock %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+<div class="container">
+  <h2 style="text-align:center;">Login</h2>
+  <hr>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+
+    <div class="row">
+      <div class="col-xs-4">
+        {{field.label_tag}}
+      </div>
+      <div class="col-xs-8">
+        {{field}}
+      </div>
+    </div>
+    <br>
+    {% endfor %}
+    <button id="id_btn_login" class="btn btn-success" type="submit">Login</button>
+    <a id="id_btn_pw_forgot" class="btn btn-success" href="reset_password">Forget Password</a>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,88 @@
+#burger_menu_icon {
+  float: left;
+  margin-left: 10px;
+  border: none;
+  margin: 25px 0px 0px 12px;
+  background-color: transparent;
+}
+
+#quill_icon {
+  float: right;
+  margin: 14px 10px 0px 0px;
+  border: none;
+}
+
+#save-habit-icon {
+  float: right;
+  margin: 26px 20px 0px 0px;
+  border: none;
+}
+
+#update-habit-icon {
+  float: right;
+  margin: 26px 20px 0px 0px;
+  border: none;
+}
+
+.nav-custom {
+  padding-top: 20px;
+}
+
+.avatar {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: 40px;
+  height: 50px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+}
+
+a {
+  font-weight: bold;
+  font-family: monospace;
+
+  color: black;
+}
+
+#logout-glyphicon {
+  margin-top: 3px;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: black;
+}
+
+.color-yellowgreen {
+  background-color: #5cb85c;
+}
+
+.custom-navbar-brand {
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 28px;
+  display: block;
+  margin: 20px 0px 0px 50px;
+}
+
+.navbar-header {
+  background-color: white;
+  min-height: 80px;
+
+}
+
+.custom-navbar-title {
+  font-size: 16px;
+}
+
+.custom-navbar-header {
+  position: relative;
+  min-height: 50px;
+  margin-bottom: 0px;
+  border: 1px solid transparent;
+}
+
+.navbar-default .navbar-brand {
+    color: black;
+    /*font-size: 19px;*/
+}

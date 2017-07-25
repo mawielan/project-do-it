@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% block head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'habits/style.css' %}" />
+{% endblock %}
+
+{% block title %}Overview{% endblock %}
+
+
+{% block body %}
+<div class="container">
+  {% if habits %}
+  {% for habit in habits %}
+  <div id="link-div" class="media">
+    <a id="link-spanner" href="{{habit.get_absolute_url}}"></a>
+    <div id="overview-content" class="media-body">
+      <h4 class="media-heading">{{habit.title}}</h4>
+      <p>{{habit.trigger}}...</p>
+      <p>{{habit.existingroutine}}</p>
+      <p>I will...</p>
+      <p>{{habit.targetbehavior}}</p>
+      {% if habit.triggered_at_date %}
+      <p>Date: {{habit.triggered_at_date}}</p>
+      {% endif %}
+      {% if habit.triggered_at_time %}
+      <p>Time: {{habit.triggered_at_time}}</p>
+      {% endif %}
+    </div>
+    <div class="media-right media-middle">
+      {% if habit.image_url %}
+      <img id="overview-image" class="media-object" src="{{habit.image_url}}" width=100 height=100>
+      {% endif %}
+    </div>
+  </div>
+  <hr>
+  {% endfor %}
+  {% else %}
+  <p>There are no habits.</p>
+  {% endif %}
+  <a class="btn btn-success" id="id_btn_add_habit" href="{% url 'create_habit' %}"><span id="id_glyphicon_add" class="glyphicon glyphicon-plus"></span></a>
+</div>
+
+<!-- <nav class="navbar navbar-default navbar-fixed-bottom  ">
+  <div class="container">
+    <ul class="nav nav-pills nav-justified custom-navpills-bottom">
+      <li role="navigation">
+        <a  href="settings/">
+          <span class="glyphicon glyphicon-cog custom-navbar-glyphicon"></span>
+        </a>
+      </li>
+      <li role="navigation">
+        <a href="{% url 'manage_habits' %}">
+          <span class="glyphicon glyphicon-list custom-navbar-glyphicon "></span>
+        </a>
+      </li>
+      <li role="navigation">
+        <a href="{% url 'create_habit' %}">
+        <span class="glyphicon glyphicon-plus custom-navbar-glyphicon"></span>
+      </a>
+      </li>
+    </ul>
+  </div>
+</nav> -->
+{% endblock %}

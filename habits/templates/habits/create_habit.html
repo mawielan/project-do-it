@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% block head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'habits/style.css' %}" />
+  <script src="https://use.fontawesome.com/d25020f20b.js"></script>
+{% endblock %}
+
+{% block title %}Create Habit{% endblock %}
+
+
+{% block navbar %}
+<br>
+<br>
+<br>
+<div class="container">
+  <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div style="display:inline-flex">
+        <a href="{% url 'display_habits' %}">
+          <span style="margin: 15 0 0 30;" class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <label style="margin: 14px 0px 0px 65px; font-size:15px;">Create Your New Habit</label>
+      </div>
+    </div>
+
+    <div id="navbar" class="navbar-collapse collapse">
+      {% if user.is_authenticated %}
+      <ul class="nav navbar-nav navbar-right">
+        <li style="display:-webkit-box"><a href="{% url 'view_profile' %}">{{ user }}</a>
+          <img src="{{ user.userprofile.image_url }}" class="avatar img-responsive">
+          <a id="logout-glyphicon" href="{% url 'logout' %}"><span class="glyphicon glyphicon-off"></span>    </a>
+        </li>
+      </ul>
+      {% else %}
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'registration' %}">Register</a></li>
+      </ul>
+      {% endif %}
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+  </nav>
+</div>
+{% endblock %}
+
+
+{% block body %}
+<div class="container">
+  <form style="text-align: center" id="myform" action="{% url 'create_habit' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.errors }}
+    <br>
+    <div>
+      <input style="margin: 0 auto; text-align:center;border:none; background-color:transparent;"type="text" name="title" id="id_title" maxlength="200" required placeholder="Title">
+    </div>
+      <!-- <p><input type="text" name="title" id="id_title" maxlength="200" required placeholder="Title" /></p> -->
+    <!-- </div> -->
+    <br>
+    <br>
+    <p>{{ form.trigger }}<p>
+    <br>
+    <p style="font-weight:bold; font-size: 20px;">{{ form.existingroutine.label }}</p>
+    <p style="margin-left: 60px;">{{ form.existingroutine }} <a style="margin-left: 10px;" class="custom-link-more" href="{% url 'display_existing_routines' %}">more...</a></p>
+    <br>
+    <p style="font-weight:bold; font-size: 20px;">{{ form.targetbehavior.label }}</p>
+    <p style="margin-left: 60px;">{{ form.targetbehavior }} <a style="margin-left: 10px;" class="custom-link-more" href="{% url 'display_targetbehavior' %}">more...</a></p>
+    <br>
+    <br>
+    <p style="margin-left: 55px;"> <input id="id_image" type="file" class="" name="image"> </p>
+    <br>
+    <input type="submit" value="Create new habit" id="innerSubmitBtn" />
+    <div class="row">
+      <p>Add date to trigger habit<p>
+      <input style="margin: 0 auto;" id="id_triggered_at_date" type="date" class="validate" name="date">
+    </div>
+    <div class="row">
+      <p>Add time to trigger habit<p>
+      <input style="margin: 0 auto;" id="id_triggered_at_time" type="time" class="validate" name="time">
+    </div>
+
+    <!-- <div class="row">
+      <div class="input-field col s6">
+        <input id="date" type="date" class="validate" name="date">
+        Date
+      </div>
+    </div> -->
+  </form>
+  <button id="id_btn_ok_habit" class="btn btn-success" form="myform" id="myform">
+    <span id="id_glyphicon_ok" class="glyphicon glyphicon-ok"></span>
+  </button>
+</div>
+{% endblock %}
+<!-- <nav class="navbar navbar-default navbar-fixed-bottom  ">
+  <div class="container">
+    <ul class="nav nav-pills nav-justified custom-navpills-bottom">
+      <li role="navigation">
+        <a  href="{% url 'display_habits' %}">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+      </li>
+      <li role="navigation">
+        <button class="custom-btn-ok" form="myform" id="myform">
+        <span class="glyphicon glyphicon-ok"></span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</nav> -->

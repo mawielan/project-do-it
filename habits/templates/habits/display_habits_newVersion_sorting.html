@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Example</title>
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0-alpha.2/jquery.mobile-1.4.0-alpha.2.min.css" />
+  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.4.0-alpha.2/jquery.mobile-1.4.0-alpha.2.min.js"></script>
+
+  <!-- (Start) Add the features of jQuery UI sortable -->
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+  <!-- (Start) Add jQuery UI Touch Punch -->
+  {% load staticfiles %}
+  <script src="{% static 'habits/jquery.ui.touch-punch.min.js' %}"></script>
+  <script src="{% static 'habits/script.js' %}"></script>
+
+  <style>
+    button.accordion {
+      background-color: white;
+      color: #444;
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      height: 105px;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 22px;
+      transition: 0.4s;
+    }
+
+    /* for desktop-version? , button.accordion:hover */
+    button.accordion.active {
+        background-color: burlywood;
+    }
+
+    div.panel {
+        padding: 0 18px;
+        margin-bottom: 10px;
+        padding-left: 30px;
+        background-color: white;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+    }
+  </style>
+
+</head>
+<body>
+  <button class="accordion">Section 1</button>
+  <div class="panel">
+   <p>Lorem ipsum...</p>
+  </div>
+
+  <button class="accordion">Section 2</button>
+  <div class="panel">
+   <p>Lorem ipsum...</p>
+  </div>
+
+  <button class="accordion">Section 3</button>
+  <div class="panel">
+   <p>Lorem ipsum...</p>
+  </div>
+  <!-- {% if habits %}
+  <div id="accordion">
+    {% for habit in habits %}
+    <div class="group">
+      <div class="media">
+        <div class="media-body">
+          <h4 class="media-heading">{{habit.title}}</h4>
+        </div>
+        <div class="media-right media-middle">
+          {% if habit.image_url %}
+          <img id="overview-image" class="media-object" src="{{habit.image_url}}" width=75 height=75>
+          {% endif %}
+        </div>
+      </div>
+      <!-- <h3>{{habit.title}}</h3> -->
+      <!-- <div class="panel">
+        <br>
+        <button id="icon-right" type="button" class="btn btn-default" aria-label="Left Align">
+          <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
+        </button>
+        <div id="icon-right" class="btn-group">
+          <button id="icon-right" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-share-alt fa-2x" aria-hidden="true"></i>
+          </button>
+          <div id="dropdown-menu" class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'tweet_habit' habit.id %}"><i id="share-option" class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+            <a class="dropdown-item" href="{% url 'post_habit' habit.id %}"><i id="share-option" class="fa fa-facebook fa-2x" aria-hidden="true"></i></a>
+            <a class="dropdown-item" href="{% url 'gplus_habit' habit.id %}"><i id="share-option" class="fa fa-google-plus fa-2x" aria-hidden="true"></i></a>
+            <a class="dropdown-item" href="{% url 'mail_habit' habit.id %}"><i id="share-option" class="fa fa-envelope fa-2x" aria-hidden="true"></i></a>
+          </div>
+        </div>
+        <p class="custom-font-size-20-bold">{{habit.trigger}}...</p>
+        <p class="custom-font-size-17">&nbsp&nbsp&nbsp&nbsp{{habit.existingroutine}}</p>
+        <p class="custom-font-size-20-bold">I will...</p>
+        <p class="custom-font-size-17">&nbsp&nbsp&nbsp&nbsp{{habit.targetbehavior}}</p>
+
+        <br>
+        <br>
+
+        <div class="container">
+          <div id="section-row" class="row">
+            <div class="col">
+              <button id="section-icon-bottom"  type="button" class="btn btn-default" aria-label="Left Align">
+                <i class="fa fa-trash fa-2x" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="col">
+              <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">
+                <i class="fa fa-toggle-on fa-2x" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="col">
+              <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">
+                <i class="fa fa-comments fa-2x" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="col">
+              <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">
+                <i class="fa fa-comment fa-2x" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div> -->
+<!--
+      </div> <!-- end panel -->
+    <!-- </div> <!-- end group -->
+    <!-- {% endfor %}
+  </div>
+  {% endif %} -->
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'habits/style.css' %}" type="text/css">
+{% endblock %}
+
+{% block content %}
+<div class="custom-textarea-habit-mail">
+  <form action="" method="POST">
+    {% csrf_token %}
+    <div class="input-group custom-margin-top-habit-mail">
+      <span class="input-group-addon custom-input-left-habit-mail">from</span>
+      <!-- <input name="mail_from" type="text" class="form-control custom-input-right-habit-mail" aria-describedby="id_mail_from"> -->
+      {{ form.mail_from }}
+    </div>
+    <hr>
+    <div class="input-group">
+      <span class="input-group-addon custom-input-left-habit-mail">to</span>
+      {{ form.mail_to }}
+      <!-- <input name="mail_to" type="text" class="form-control custom-input-right-habit-mail" placeholder="" aria-describedby="id_mail_to"> -->
+    </div>
+    <hr>
+    <!-- <input name="mail_subject" type="text" class="form-control custom-input-right-habit-mail" placeholder="Subject" aria-describedby="id_mail_subject"> -->
+    <div class="container">
+        {{ form.mail_subject }}
+    </div>
+
+    <hr>
+    <div class="container">
+    {{ form.mail_body }}
+    </div>
+
+    <input id="id_mail_send_habit" type="submit" class="btn btn-default" value="Send habit"></input>
+  </form>
+</div>
+{% endblock %}
