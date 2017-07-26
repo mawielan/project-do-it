@@ -70,7 +70,8 @@
 
 /* for desktop-version? , button.accordion:hover */
 .custom-accordion.active {
-  background-color: burlywood;
+  /*background-color: burlywood;*/
+  background-color: #0080FF;
 }
 
 div.panel {
@@ -85,7 +86,7 @@ div.panel {
 
 
 body {
-  background-color: burlywood;
+  background-color: #0080FF;
 }
 
 .custom-list-item {

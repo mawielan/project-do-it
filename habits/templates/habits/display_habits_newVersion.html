@@ -76,7 +76,7 @@
             <div class="col">
               <button id="section-icon-bottom-displayComments" type="button" class="btn btn-default" aria-label="Left Align"  {% if habit.is_active != True  %} disabled {% endif %}>
                 <i class="fa fa-comments fa-2x" aria-hidden="true"></i>
-                <!-- <span class="badge">{{habit.comments|length}}</span> -->
+                <span id="numberOfComments_{{habit.id}}" class="badge"></span>
               </button>
             </div>
             <div class="col">

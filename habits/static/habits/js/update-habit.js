@@ -1,6 +1,8 @@
-$('button').disabled = true;
+$('button').prop('disabled', true);
 
 if (typeof(document.getElementById('id_habitToUpdate')) && document.getElementById('id_habitToUpdate') != null) {
+  $('#update-habit-icon').prop('disabled', false);
+  $('.btn-arrow').prop('disabled', false);
   var habitToUpdate = document.getElementById('id_habitToUpdate');
   var habitToUpdate_id = habitToUpdate.parentElement.id;
   sessionStorage.setItem("habitToUpdate_id", habitToUpdate_id);
@@ -90,8 +92,6 @@ function targetbehaviorActionLeft_update() {
         // habit_title.value = targetbehaviorInput.value;
         break;
       }
-
-
     }
   }
 
@@ -101,19 +101,32 @@ function targetbehaviorActionLeft_update() {
   }
 }
 
-//For getting CSRF token
-function getCookie(name) {
-   var cookieValue = null;
-   if (document.cookie && document.cookie != '') {
-     var cookies = document.cookie.split(';');
-     for (var i = 0; i < cookies.length; i++) {
-       var cookie = jQuery.trim(cookies[i]);
-       // Does this cookie string begin with the name we want?
-       if (cookie.substring(0, name.length + 1) == (name + '=')) {
-           cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-           break;
-        }
+function routineActionLeft_update() {
+  console.log('routineActionLeft_update is fired!');
+  var myOpts = document.getElementById('select-routines').options;
+  var routineInput = document.getElementById('carousel-input-routine');
+
+  routineInput.disabled = true;
+
+  console.log(myOpts);
+  for (var i = 0; i < myOpts.length; i++) {
+    console.log(i);
+    console.log('routineInput: ' + routineInput.value);
+
+    if (routineInput.value == myOpts[i].value) {
+      if (i == (myOpts.length -1)) {
+        console.log('Last Element of the list');
+        routineInput.value = myOpts[0].value;
+        // habit_title.value = targetbehaviorInput.value;
+        console.log(routineInput.value);
+        break;
+      } else {
+        routineInput.value = myOpts[i+1].value;
+        console.log(routineInput.value);
+        // habit_title.value = targetbehaviorInput.value;
+        break;
       }
     }
-    return cookieValue;
+  }
+
 }

@@ -157,20 +157,20 @@ def update_habit_complete(request):
             image = habit_image.split('http://localhost:8000/media')
 
             try:
-                obj_habit = Habit.objects.get(id=habitToUpdate_id)
+                obj_habit = Habit.objects.get(id=habitToUpdate_id, created_by=request.user.userprofile)
             except Habit.DoesNotExist:
                 console.log('Habit with id: ' + habitToUpdate_id + ' does not exist!')
 
             # Check if any value has changed and update and finally save habit with this specific id.
 
             try:
-                obj_routine = Existingroutine.objects.get(name=habit_routine)
+                obj_routine = Existingroutine.objects.get(name=habit_routine, created_by=request.user.userprofile)
             except Existingroutine.DoesNotExist:
                 obj_routine = Existingroutine(name=habit_routine, created_by=request.user.userprofile)
                 obj_routine.save()
 
             try:
-                obj_targetbehavior = Targetbehavior.objects.get(name=habit_targetbehavior)
+                obj_targetbehavior = Targetbehavior.objects.get(name=habit_targetbehavior, created_by=request.user.userprofile)
             except Targetbehavior.DoesNotExist:
                 obj_targetbehavior = Targetbehavior(name=habit_targetbehavior, created_by=request.user.userprofile)
                 obj_targetbehavior.save()
@@ -209,12 +209,13 @@ def save_habit(request):
             habit_title = request.POST.get('habit_title')
             habit_trigger = request.POST.get('habit_trigger')
             habit_routine = request.POST.get('habit_routine')
+            print(habit_routine);
             habit_targetbehavior = request.POST.get('habit_targetbehavior')
             habit_image = request.POST.get('habit_image')
             print(habit_image)
 
             image = habit_image.split('http://localhost:8000/media')
-            print(image[1])
+            # print(image[1])
 
             try:
                 obj_routine = Existingroutine.objects.get(name=habit_routine)
@@ -267,35 +268,15 @@ def get_comments(request):
     print('get_comments is fired')
     if (request.method == 'POST'):
         if request.is_ajax():
+
             habit = Habit.objects.get(id=request.POST.get('habit_id'))
             comments = Comment.objects.filter(created_by=request.user.userprofile, related_habit=habit)
+            numberOfComments = len(comments)
 
             comments_json = serializers.serialize('json', comments)
-
             print(comments_json)
 
-            comments_list = list(comments)
-
-            comments_list_json = serializers.serialize('json', comments_list)
-
-            print(comments_list_json)
-
-            # print(comments[0])
-            # print(comments[1])
-            # data = {"habit_title":habit.title}
-            #
-            # for comment in comments:
-            #     data.update({'comment_' + str(comment.id) : comment.comment}, {'comment_date_' + str(comment.created_at) : comment.created_at})
-            #
-            # print(data)
-            # comments_list = list(comments)
-            #
-            # for item in comments_list:
-            #     item.title
-            #
-            # print(comments)
-            # print(comments_list)
-            data = { "habit_title" : habit.title, "comments_json" : comments_json}
+            data = { "habit_title" : habit.title, "comments_json" : comments_json, "numberOfComments" : numberOfComments}
             return JsonResponse(data, safe=False)
 
 
@@ -546,7 +527,36 @@ class HabitListView(ListView):
     def get_queryset(self):
         print('get_queryset_HabitListView')
         queryset = Habit.objects.filter(created_by=self.request.user.id)
-        print(self.request.user.id)
+        if (len(queryset) == 0):
+            print(len(queryset))
+            print('Keine Habits vorhanden')
+
+            # TODO: könnte man ersetzen durch eine json file mit habits.
+            routine1 = Existingroutine(name="meine Tasse auf dem Tisch abstelle,", created_by=self.request.user.userprofile)
+            routine2 = Existingroutine(name="meine Mappe auf dem Tisch ablege", created_by=self.request.user.userprofile)
+
+            # save routines in db
+            routine1.save()
+            routine2.save()
+
+            targetbehavior1 = Targetbehavior(name="gebe ich den Zeitplan des heutigen Meetings bekannt.", created_by=self.request.user.userprofile)
+            targetbehavior2 = Targetbehavior(name="stelle ich die Uhr auf...", created_by=self.request.user.userprofile)
+            targetbehavior3 = Targetbehavior(name="erinnere ich das Team an die verbleibende Zeit.", created_by=self.request.user.userprofile)
+
+            # save targetbehaviors in db
+            targetbehavior1.save()
+            targetbehavior2.save()
+            targetbehavior3.save()
+
+            habit1 = Habit(created_by=self.request.user.userprofile, title="Verhaltensnugget#1", existingroutine=routine1, targetbehavior=targetbehavior1, trigger=Habit.TRIGGER_OPTION_1, image="habit_image/icon_27774228454_5b8fe69dd7_q.jpg")
+            habit2 = Habit(created_by=self.request.user.userprofile, title="Verhaltensnugget#2", existingroutine=routine1, targetbehavior=targetbehavior2, trigger=Habit.TRIGGER_OPTION_1, image="habit_image/icon_26856987_a9c88043d3_q.jpg")
+            habit3 = Habit(created_by=self.request.user.userprofile, title="Verhaltensnugget#3", existingroutine=routine2, targetbehavior=targetbehavior3, trigger=Habit.TRIGGER_OPTION_1,  image="habit_image/Kompetenzz_17752__DSC5803.jpg")
+            habit1.save()
+            habit2.save()
+            habit3.save()
+
+        print(len(queryset))
+        print(queryset)
         return queryset
 
     # def get_context_data(self, **kwargs):

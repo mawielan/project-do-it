@@ -67,20 +67,20 @@ Update
 
           <p hidden=true>{{form.trigger}}</p>
           <div id="div_trigger"  style="margin-top: 10px;">
-            <button onclick="triggerActionLeft()" id="carousel-btn-left" class="btn btn-default"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+            <button onclick="triggerActionLeft()" id="carousel-btn-left" class="btn btn-default btn-arrow"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
             <input id="carousel-input-trigger" value="{{habitToUpdate.trigger}}" disabled ></input>
-            <button  onclick="triggerActionRight()" id="carousel-btn-right" class="btn btn-default"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+            <button  onclick="triggerActionRight()" id="carousel-btn-right" class="btn btn-default btn-arrow" ><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
           </div>
           <div id="div-routine" style="margin-top: 30px; margin-left: 0px;">
-            <button onclick="routineActionLeft()" id="carousel-btn-left" class="btn btn-default"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+            <button onclick="routineActionLeft_update()" id="carousel-btn-left" class="btn btn-default btn-arrow"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
             <input id="carousel-input-routine" value="{{habitToUpdate.existingroutine.name}}" disabled style="width:315px"></input>
-            <button  onclick="routineActionRight()" id="carousel-btn-right" class="btn btn-default"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+            <button  onclick="routineActionRight()" id="carousel-btn-right" class="btn btn-default btn-arrow"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
           </div>
           <!-- <p class="custom-font-size-20-bold">I will...</p> -->
           <div id="div-targetbehavior" style="margin-top: 30px;">
-            <button onclick="targetbehaviorActionLeft_update()" id="carousel-btn-left" class="btn btn-default"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+            <button onclick="targetbehaviorActionLeft_update()" id="carousel-btn-left" class="btn btn-default btn-arrow"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
             <input id="carousel-input-targetbehavior" value="{{habitToUpdate.targetbehavior.name}}" disabled style="width:315px"></input>
-            <button  onclick="targetbehaviorActionRight()" id="carousel-btn-right" class="btn btn-default"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+            <button  onclick="targetbehaviorActionRight()" id="carousel-btn-right" class="btn btn-default btn-arrow"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
           </div>
 
           <input type="submit" value="Submit" hidden="true" />
