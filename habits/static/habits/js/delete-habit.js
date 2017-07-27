@@ -3,7 +3,7 @@ $('button').prop('disabled', true);
 if (typeof(document.getElementById('delete-habit-btn')) != undefined && document.getElementById('delete-habit-btn') != null) {
   var deleteBtn = document.getElementById('delete-habit-btn');
   habitToDelete = document.getElementById('accordion_' + deleteBtn.parentElement.id)
-  sessionStorage.setItem("habitToDeleteGetFocusBack", habitToDelete.id);
+  // sessionStorage.setItem("habitToDeleteGetFocusBack", habitToDelete.id);
   habitToDelete.classList.toggle("active");
   var panel = habitToDelete.nextElementSibling;
   if (panel.style.maxHeight){

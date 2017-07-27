@@ -14,7 +14,7 @@
   border: none;
 }
 
-#section-icon-bottom-toggle {
+.section-icon-bottom-toggle {
   margin-right: 10px;
   border: none;
 }
@@ -152,12 +152,12 @@ body {
 }
 
 #div-routine {
-  margin-left: 5px;
-  margin-top: 10px;
+  /*margin-left: 5px; */
+  margin-top: 25px;
 }
 
 #carousel-input-routine {
-  width: 285px;
+  /*width: 285px;*/
   display: inline-block;
   border: none;
   font-size: 16px;
@@ -171,11 +171,11 @@ body {
 
 #div-targetbehavior {
   /*margin-left: 5px;*/
-  margin-top: 10px;
+  /*margin-top: 25px;*/
 }
 
 #carousel-input-targetbehavior {
-  width: 290px;
+  /*width: 290px;*/
   display: inline-block;
   border: none;
   font-size: 16px;

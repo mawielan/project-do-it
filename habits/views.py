@@ -129,7 +129,7 @@ def set_state(request):
                     habit.priority += 1
                     habit.save()
                 habitWhichChangeState.priority = 1;
-                
+
             else:
                 habitWhichChangeState.priority = badNumber;
             habitWhichChangeState.save()
@@ -676,7 +676,7 @@ class HabitDetailView(DetailView):
 class HabitUpdateView(UpdateView):
     model = Habit
     form_class = HabitUpdateForm
-    template_name = 'habits/update_habit.html'
+    template_name = 'habits/display_habitToUpdate.html'
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context

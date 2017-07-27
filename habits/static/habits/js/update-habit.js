@@ -73,6 +73,15 @@ $("#update-habit-icon").click(function(e) {
   });
 });
 
+function targetbehaviorActionRight_update() {
+  console.log('targetbehaviorActionRight is fired!');
+  var targetbehaviorInput = document.getElementById('carousel-input-targetbehavior');
+  targetbehaviorInput.disabled = false;
+  targetbehaviorInput.focus();
+  targetbehaviorInput.value = "";
+  targetbehaviorInput.placeholder = "Neues Zielverhalten";
+}
+
 function targetbehaviorActionLeft_update() {
   console.log('targetbehaviorActionLeft_update is fired!');
   var isOption = false;
@@ -106,6 +115,17 @@ function targetbehaviorActionLeft_update() {
     targetbehaviorInput.value = myOpts[0].value;
     habit_title.value = targetbehaviorInput.value;
   }
+}
+
+
+function routineActionRight_update() {
+  console.log('routineActionRight is fired!');
+  var routineInput = document.getElementById('carousel-input-routine');
+  routineInput.disabled = false;
+  routineInput.focus();
+  routineInput.value = "";
+  routineInput.placeholder = "Neue Routine";
+
 }
 
 function routineActionLeft_update() {
@@ -142,5 +162,39 @@ function routineActionLeft_update() {
     console.log('isOption: ' + isOption)
     routineInput.value = myOpts[0].value;
   }
+}
 
+function triggerActionRight_update() {
+  console.log('triggerActionRight is fired!');
+  var triggerInput = document.getElementById('carousel-input-trigger');
+  triggerInput.disabled = false;
+  triggerInput.focus();
+  triggerInput.value = "";
+  triggerInput.placeholder = "Neuer Trigger";
+}
+
+function triggerActionLeft_update () {
+  isOption = false;
+  myOpts = document.getElementById('id_trigger').options;
+  caroInput = document.getElementById('carousel-input-trigger');
+  caroInput.disabled = true;
+
+  for (var i = 0; i < myOpts.length; i++) {
+
+    if (caroInput.value == myOpts[i].value) {
+      isOption = true;
+      if (i == (myOpts.length -1)) {
+        console.log('Last Element of the list');
+        caroInput.value = myOpts[0].value;
+        break;
+      } else {
+        caroInput.value = myOpts[i+1].value;
+        break;
+      }
+    }
+  }
+
+  if (!isOption) {
+    caroInput.value = myOpts[0].value;
+  }
 }

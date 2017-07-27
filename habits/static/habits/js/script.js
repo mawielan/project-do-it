@@ -78,24 +78,24 @@ for (i = 0; i < acc.length; i++) {
 
 window.onload = function() {
   console.log('window.onload was clicked');
-  console.log(referenceList_numberOfComments);
-  console.log(window.location.pathname);
-  console.log(sessionStorage);
-  console.log(sessionStorage.getItem('habitToDeleteGetFocusBack'));
-  console.log(sessionStorage.getItem('habitAfterPostComment'));
-  if (sessionStorage['habitToDeleteGetFocusBack'] && window.location.pathname == "/overview/") {
-    console.log("There is 'habitToDeleteGetFocusBack' in session storage ");
-    if (typeof(document.getElementById(sessionStorage.getItem('habitToDeleteGetFocusBack'))) != undefined && document.getElementById(sessionStorage.getItem('habitToDeleteGetFocusBack')) != null) {
-      document.getElementById(sessionStorage.getItem('habitToDeleteGetFocusBack')).classList.toggle("active");
-      var panel =   document.getElementById(sessionStorage.getItem('habitToDeleteGetFocusBack')).nextElementSibling;
-      if (panel.style.maxHeight){
-        panel.style.maxHeight = null;
-      } else {
-        panel.style.maxHeight = panel.scrollHeight + "px";
-      }
-    }
-    sessionStorage.removeItem("habitToDeleteGetFocusBack");
-  }
+  // console.log(referenceList_numberOfComments);
+  // console.log(window.location.pathname);
+  // console.log(sessionStorage);
+  // console.log(sessionStorage.getItem('habitToDeleteGetFocusBack'));
+  // console.log(sessionStorage.getItem('habitAfterPostComment'));
+  // if (sessionStorage['habitToDeleteGetFocusBack'] && window.location.pathname == "/overview/") {
+  //   console.log("There is 'habitToDeleteGetFocusBack' in session storage ");
+  //   if (typeof(document.getElementById(sessionStorage.getItem('habitToDeleteGetFocusBack'))) != undefined && document.getElementById(sessionStorage.getItem('habitToDeleteGetFocusBack')) != null) {
+  //     document.getElementById(sessionStorage.getItem('habitToDeleteGetFocusBack')).classList.toggle("active");
+  //     var panel =   document.getElementById(sessionStorage.getItem('habitToDeleteGetFocusBack')).nextElementSibling;
+  //     if (panel.style.maxHeight){
+  //       panel.style.maxHeight = null;
+  //     } else {
+  //       panel.style.maxHeight = panel.scrollHeight + "px";
+  //     }
+  //   }
+  //   sessionStorage.removeItem("habitToDeleteGetFocusBack");
+  // }
 
 
   // if (sessionStorage.length > 0) {
@@ -188,40 +188,8 @@ function addEvent(ele, evnt, funct) {
     return ele.attachEvent("on"+evnt,funct);
 }
 
-function triggerActionLeft () {
-  isOption = false;
-  myOpts = document.getElementById('id_trigger').options;
-  caroInput = document.getElementById('carousel-input-trigger');
-  caroInput.disabled = true;
 
-  for (var i = 0; i < myOpts.length; i++) {
 
-    if (caroInput.value == myOpts[i].value) {
-      isOption = true;
-      if (i == (myOpts.length -1)) {
-        console.log('Last Element of the list');
-        caroInput.value = myOpts[0].value;
-        break;
-      } else {
-        caroInput.value = myOpts[i+1].value;
-        break;
-      }
-    }
-  }
-
-  if (!isOption) {
-    caroInput.value = myOpts[0].value;
-  }
-}
-
-function triggerActionRight() {
-  console.log('triggerActionRight is fired!');
-  var triggerInput = document.getElementById('carousel-input-trigger');
-  triggerInput.disabled = false;
-  triggerInput.focus();
-  triggerInput.value = "";
-  triggerInput.placeholder = "Neuer Trigger";
-}
 
 function routineActionLeft() {
   console.log('routineActionLeft is fired!');
@@ -702,6 +670,55 @@ function editHabit() {
 
 
 // Set state of habit
+function setState(id) {
+  console.log('toggleBtn is fired!');
+  var setActive;
+  var habitWhichChangeID = id;
+  console.log(document.getElementById('section-icon-bottom-toggle_' + id).firstChild.nextElementSibling.classList[1]);
+  if (document.getElementById('section-icon-bottom-toggle_' + id).firstChild.nextElementSibling.classList[1] == 'fa-toggle-off') {
+    console.log('Habit wird aktiviert!');
+    setActive = true;
+  } else {
+    console.log('Habit wird deaktiviert');
+    setActive = false;
+  }
+
+  for (var i = 0; i < sessionStorage.length; i++) {
+    var acc = 'accordion_' + habitWhichChangeID;
+
+    if (sessionStorage.key(i) == acc) {
+      var csrftoken = getCookie('csrftoken');
+
+     //This is the Ajax post.Observe carefully. It is nothing but details of where_to_post,what_to_post
+
+      $.ajax({
+              url : "/overview/habit/state/", // the endpoint,commonly same url
+              type : "POST", // http method
+              data : { csrfmiddlewaretoken : csrftoken,
+                  habit_id : habitWhichChangeID,
+                  state : setActive
+
+      }, // data sent with the post request
+
+      // handle a successful response
+      success : function(json) {
+         console.log(json); // another sanity check
+         sessionStorage.removeItem('accordion_' + json['habitWhichChangeID']);
+         console.log(sessionStorage);
+         window.location.href = "/overview/";
+
+      },
+
+      // handle a non-successful response
+      error : function(xhr,errmsg,err) {
+        console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+      }
+      });
+    }
+  }
+
+}
+/*
 $(document).on('click','#section-icon-bottom-toggle', function(e) {
   console.log('toggleBtn is fired!');
   e.preventDefault();
@@ -753,3 +770,5 @@ $(document).on('click','#section-icon-bottom-toggle', function(e) {
   }
 
 });
+
+*/

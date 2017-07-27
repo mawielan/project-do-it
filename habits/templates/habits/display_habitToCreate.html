@@ -6,6 +6,7 @@
 
   {% load staticfiles %}
   <link rel="stylesheet" type="text/css" href="{% static 'habits/css/style.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'habits/css/create-habit.css' %}" />
 
 {% endblock %}
 
@@ -23,67 +24,71 @@
     <li class="custom-list-item">
 
         <button draggable=true id="id_habitToCreate" class="accordion custom-accordion">
-          <div class="media">
-            <div class="media-body">
-              <input id="habit-title" type="text" class="media-heading custom-media-heading-input"></input>
+          <div class="row">
+            <div class="col-xs-8">
+              <textarea id="habit-title" type="text" style="resize:none;border:none;"></textarea>
             </div>
-            <div class="media-right media-middle">
-              <!-- {% if habitToCreate.image_url %}
-              <img id="overview-image" class="media-object" src="{{habit.image_url}}" width=75 height=75>
-              {% else %}
-              <img id="overview-image" class="media-object" src="/media/habit_image/no_image_placeholder.png" width=75 height=75>
-              {% endif %} -->
+            <div class="col-xs-4">
               <img id="create-habit-img" class="media-object" src="/media/habit_image/no_image_placeholder.png" width=75 height=75>
-
-              <form id="upload-image-form" enctype="multipart/form-data" method="POST" >
-                <!-- action="{% url 'upload_habit_image' %}" method="POST" -->
-                {% csrf_token %}
-                <br>
-                <input id="id-image" type="file" class="" name="image" hidden>
-                <input id="id-upload-habit-image" class="btn btn-default" type="submit" value="Upload image" hidden/>
-                <br>
-                <!-- <input id="id-upload-habit-image" class="btn btn-default" type="submit" value="Upload image" hidden=true></input> -->
-              </form>
             </div>
           </div>
-
         </button>
-        <div class="panel" style="min-height: 255px; padding-left: 0px;">
+        <div class="panel" style="min-height: 340; padding-left: 0px;">
           <br>
-          <button type="button" class="btn btn-default icon-right" aria-label="Left Align">
-            <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
-          </button>
-
-          <div class="btn-group icon-right">
-            <button type="button" class="btn btn-default dropdown-toggle icon-right"  aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-share-alt fa-2x" aria-hidden="true"></i>
-            </button>
-            <div id="dropdown-menu" class="dropdown-menu">
-              <a class="dropdown-item" ><i id="share-option" class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
-              <a class="dropdown-item" ><i id="share-option" class="fa fa-facebook fa-2x" aria-hidden="true"></i></a>
-              <a class="dropdown-item" ><i id="share-option" class="fa fa-google-plus fa-2x" aria-hidden="true"></i></a>
-              <a class="dropdown-item" ><i id="share-option" class="fa fa-envelope fa-2x" aria-hidden="true"></i></a>
+          <div class="row">
+            <div class="col-xs-8">
+            </div>
+            <div class="col-xs-2">
+              <button type="button" class="btn btn-default icon-right" aria-label="Left Align">
+                <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="col-xs-2" style="padding-right:40px">
+              <div class="btn-group icon-right">
+                <button type="button" class="btn btn-default dropdown-toggle icon-right"  aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-share-alt fa-2x" aria-hidden="true"></i>
+                </button>
+                <div id="dropdown-menu" class="dropdown-menu">
+                  <a class="dropdown-item" ><i id="share-option" class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+                  <a class="dropdown-item" ><i id="share-option" class="fa fa-facebook fa-2x" aria-hidden="true"></i></a>
+                  <a class="dropdown-item" ><i id="share-option" class="fa fa-google-plus fa-2x" aria-hidden="true"></i></a>
+                  <a class="dropdown-item" ><i id="share-option" class="fa fa-envelope fa-2x" aria-hidden="true"></i></a>
+                </div>
+              </div>
             </div>
           </div>
 
           <p hidden=true>{{form.trigger}}</p>
-          <div id="div_trigger" style="margin-top: 10px;">
-            <button onclick="triggerActionLeft()" id="carousel-btn-left" class="btn btn-default btn-arrow"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-            <input id="carousel-input-trigger" value="Wenn ich..." disabled style="font-size: 17px; width: 215px"></input>
-            <button  onclick="triggerActionRight()" id="carousel-btn-right" class="btn btn-default btn-arrow"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+          <div class="row" id="div_trigger">
+            <div class="col-xs-1">
+              <button onclick="triggerActionLeft()" id="create-carousel-trigger-btn-left" class="btn btn-default btn-arrow"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+            </div>
+            <div class="col-xs-7">
+              <input id="carousel-input-trigger" value="Wenn ich..." disabled style="font-size: 17px; width: 215px"></input>
+            </div>
+            <div class="col-xs-1">
+              <button  onclick="triggerActionRight()" id="create-carousel-trigger-btn-right" class="btn btn-default btn-arrow"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+            </div>
+            <div class="col-xs-3">
+            </div>
           </div>
-          <div id="div-routine" style="margin-top: 30px; margin-left: 0px;">
-            <button onclick="routineActionLeft()" id="carousel-btn-left" class="btn btn-default btn-arrow"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-            <input id="carousel-input-routine" value="{{routines.0.name}}" disabled style="width:315px"></input>
-            <button  onclick="routineActionRight()" id="carousel-btn-right" class="btn btn-default btn-arrow"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
-          </div>
-          <!-- <p class="custom-font-size-20-bold">I will...</p> -->
-          <div id="div-targetbehavior" style="margin-top: 30px;">
-            <button onclick="targetbehaviorActionLeft()" id="carousel-btn-left" class="btn btn-default btn-arrow"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
-            <input id="carousel-input-targetbehavior" value="{{targetbehaviors.0.name}}" disabled style="width:315px"></input>
-            <button  onclick="targetbehaviorActionRight()" id="carousel-btn-right" class="btn btn-default btn-arrow"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+          <div class="row" id="div-routine">
+            <div class="col-xs-10 col-xs-offset-1">
+                <button onclick="routineActionLeft()" id="create-carousel-routine-btn-left" class="btn btn-default btn-arrow"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                <!-- <input id="carousel-input-routine" value="{{routines.0.name}}" disabled style="width:315px"></input> -->
+                <textarea id="carousel-input-routine" value="{{routines.0.name}}" disabled cols="20" rows="3" style="resize:none; text-align:center;"></textarea>
+                <button  onclick="routineActionRight()" id="create-carousel-routine-btn-right" class="btn btn-default btn-arrow"  style="vertical-align:top"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+            </div>
           </div>
 
+          <div class="row" id="div-targetbehavior">
+            <div class="col-xs-10 col-xs-offset-1">
+                <button onclick="targetbehaviorActionLeft()" id="create-carousel-targetbehavior-btn-left" class="btn btn-default btn-arrow"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+                <!-- <input id="carousel-input-targetbehavior" value="{{targetbehaviors.0.name}}" disabled style="width:315px"></input> -->
+                <textarea id="carousel-input-targetbehavior" value="{{targetbehaviors.0.name}}" disabled cols="20" rows="3" style="resize:none; text-align:center;"></textarea>
+                <button  onclick="targetbehaviorActionRight()" id="create-carousel-targetbehavior-btn-right" class="btn btn-default btn-arrow" style="vertical-align:top"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+            </div>
+          </div>
 
           <!-- Hidden input fields to get content -->
 
@@ -99,31 +104,35 @@
             {% endfor %}
           </select>
 
-          <div class="container">
-            <div id="section-row" class="row" style="margin-top: 36px; padding-left: 31px;">
-              <div class="col">
-                <!--trash icon is wrapped in button here to disable function -->
-                <button id="section-icon-bottom_trash_habitToCreate" class="btn btn-default" aria-label="Left Align">
-                  <i class="fa fa-trash fa-2x" aria-hidden="true"></i>
-                </button>
-              </div>
-              <div class="col">
-                <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">
-                  <i class="fa fa-toggle-on fa-2x" aria-hidden="true"></i>
-                </button>
-              </div>
-              <div class="col">
-                <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">
-                  <i class="fa fa-comments fa-2x" aria-hidden="true"></i>
-                </button>
-              </div>
-              <div class="col">
-                <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">
-                  <i class="fa fa-comment fa-2x" aria-hidden="true"></i>
-                </button>
-              </div>
+          <!-- Section for further activities -->
+          <div class="row" style="margin-top: 30px;">
+            <div class="col-xs-2">
+            </div>
+            <div class="col-xs-2">
+              <button id="section-icon-bottom_trash_habitToCreate" class="btn btn-default" aria-label="Left Align">
+                <i class="fa fa-trash fa-2x" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="col-xs-2">
+              <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">
+                <i class="fa fa-toggle-on fa-2x" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="col-xs-2">
+              <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">
+                <i class="fa fa-comments fa-2x" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="col-xs-2">
+              <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">
+                <i class="fa fa-comment fa-2x" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="col-xs-2">
             </div>
           </div>
+
+
 
         </div>
 

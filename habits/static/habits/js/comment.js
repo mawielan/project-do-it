@@ -92,13 +92,12 @@ function getComments(habit_id) {
 // });
 
 // Display comments
-$(document).on('click','#section-icon-bottom-displayComments', function(e) {
+function displayComments(id) {
+// $(document).on('click','#section-icon-bottom-displayComments', function(e) {
   console.log('displayComments is fired!');
   console.log('isDisplayCommentsModeActive: ' + isDisplayCommentsModeActive);
-  e.preventDefault();
 
-  var habit = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.id;
-  var habit_ID = habit.split('panel_')[1];
+  var habit_ID = id;
   var acc_id = 'accordion_' + habit_ID;
 
   for (i = 0; i < sessionStorage.length; i++) {
@@ -165,8 +164,9 @@ $(document).on('click','#section-icon-bottom-displayComments', function(e) {
             console.log(title);
             panel2.style.textAlign = "center";
             panel2.innerHTML = '<br><p>Für das Habit ';
+            panel2.innerHTML += '<';
             panel2.innerHTML += title;
-            panel2.innerHTML += ' sind keine Kommentare vorhanden.</p>';
+            panel2.innerHTML += '> sind keine Kommentare vorhanden.</p>';
           }
 
 
@@ -201,8 +201,7 @@ $(document).on('click','#section-icon-bottom-displayComments', function(e) {
 
     }
   }
-});
-
+}
 
 //Post comment
 $(document).on('click', '#post-comment-btn', function(e) {
@@ -286,13 +285,11 @@ $(document).on('click', '#post-comment-btn', function(e) {
 });
 
 // Display add comment function
-$(document).on('click','#section-icon-bottom-addComment', function(e) {
+function displayAddComment(id) {
   console.log('addComment is fired!');
   console.log('isAddCommentModeActive: ' + isAddCommentModeActive);
-  e.preventDefault();
 
-  var habit = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.id;
-  var habit_ID = habit.split('panel_')[1];
+  var habit_ID = id;
   var acc_id = 'accordion_' + habit_ID;
 
   if (sessionStorage.length == 0) {
@@ -307,7 +304,7 @@ $(document).on('click','#section-icon-bottom-addComment', function(e) {
       panel.style.marginBottom = 1 + "px";
       var panel2 = panel.nextElementSibling;
 
-      panel2.innerHTML = '<textarea id="comment-textarea" style="border-color: black; display:block;  margin-top: 20px; margin-left: auto; margin-right: auto;" rows="4" cols="50" placeholder="Write your Comment... "></textarea> ';
+      panel2.innerHTML = '<textarea id="comment-textarea" style="border-color: black; display:block;  margin-top: 5px; margin-left: auto; margin-right: auto;" rows="4" cols="35" placeholder="Write your Comment... "></textarea> ';
       panel2.innerHTML += '<div class="container">';
       panel2.innerHTML += '  <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">';
       panel2.innerHTML += '    <i class="fa fa-file-image-o" aria-hidden="true"></i>';
@@ -343,4 +340,63 @@ $(document).on('click','#section-icon-bottom-addComment', function(e) {
       console.log('AddComentMode is ' + isAddCommentModeActive);
     }
   }
-});
+}
+
+// $(document).on('click','#section-icon-bottom-addComment', function(e) {
+//   console.log('addComment is fired!');
+//   console.log('isAddCommentModeActive: ' + isAddCommentModeActive);
+//   e.preventDefault();
+//
+//   var habit = e.target.parentElement.parentElement.parentElement.parentElement.parentElement.id;
+//   var habit_ID = habit.split('panel_')[1];
+//   var acc_id = 'accordion_' + habit_ID;
+//
+//   if (sessionStorage.length == 0) {
+//     console.log("asasasasass" );
+//   }
+//
+//   for (i = 0; i < sessionStorage.length; i++) {
+//     if (sessionStorage.key(i) == acc_id) {
+//       console.log('Item in session storage');
+//
+//       var panel = document.getElementById(sessionStorage.getItem(acc_id)).nextElementSibling;
+//       panel.style.marginBottom = 1 + "px";
+//       var panel2 = panel.nextElementSibling;
+//
+//       panel2.innerHTML = '<textarea id="comment-textarea" style="border-color: black; display:block;  margin-top: 20px; margin-left: auto; margin-right: auto;" rows="4" cols="50" placeholder="Write your Comment... "></textarea> ';
+//       panel2.innerHTML += '<div class="container">';
+//       panel2.innerHTML += '  <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">';
+//       panel2.innerHTML += '    <i class="fa fa-file-image-o" aria-hidden="true"></i>';
+//       panel2.innerHTML += '  </button>';
+//       panel2.innerHTML += '  <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">';
+//       panel2.innerHTML += '    <i class="fa fa-file-text-o" aria-hidden="true"></i>';
+//       panel2.innerHTML += '  </button>';
+//       panel2.innerHTML += '  <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">';
+//       panel2.innerHTML += '    <i class="fa fa-bar-chart" aria-hidden="true"></i>';
+//       panel2.innerHTML += '  </button>';
+//       panel2.innerHTML += '  <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">';
+//       panel2.innerHTML += '    <i class="fa fa-map-marker" aria-hidden="true"></i>';
+//       panel2.innerHTML += '  </button>';
+//       panel2.innerHTML += '  <button id="post-comment-btn" class="btn btn-default" >Post</button>';
+//       panel2.innerHTML += '</div>';
+//
+//       if (isAddCommentModeActive) {
+//         panel2.hidden = true;
+//         console.log('AddComentMode is inactive');
+//         isAddCommentModeActive = false;
+//         $('.accordion').prop('disabled', false);
+//       } else {
+//         panel2.style.minHeight = 145 + "px";
+//         panel2.style.paddingTop = 0 + "px";
+//         panel2.style.paddingBottom= 0 + "px";
+//         panel2.hidden = false;
+//         isAddCommentModeActive = true;
+//         console.log('AddCommentMode is active');
+//         isDisplayCommentsModeActive = false;
+//         $('.accordion').prop('disabled', true);
+//       }
+//
+//       console.log('AddComentMode is ' + isAddCommentModeActive);
+//     }
+//   }
+// });
