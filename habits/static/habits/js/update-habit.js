@@ -6,6 +6,13 @@ if (typeof(document.getElementById('id_habitToUpdate')) && document.getElementBy
   var habitToUpdate = document.getElementById('id_habitToUpdate');
   var habitToUpdate_id = habitToUpdate.parentElement.id;
   sessionStorage.setItem("habitToUpdate_id", habitToUpdate_id);
+  console.log(habitToUpdate_id);
+  // document.getElementById('update_numberOfComments_' + habitToUpdate_id.split('accordion_')[1]).innerHTML = 0;
+  console.log(document.getElementById('numberOfComments_' + habitToUpdate_id));
+
+
+
+
   habitToUpdate.classList.toggle("active");
   var panel = habitToUpdate.nextElementSibling;
   if (panel.style.maxHeight){
@@ -105,6 +112,7 @@ function routineActionLeft_update() {
   console.log('routineActionLeft_update is fired!');
   var myOpts = document.getElementById('select-routines').options;
   var routineInput = document.getElementById('carousel-input-routine');
+  isOption = false;
 
   routineInput.disabled = true;
 
@@ -114,6 +122,7 @@ function routineActionLeft_update() {
     console.log('routineInput: ' + routineInput.value);
 
     if (routineInput.value == myOpts[i].value) {
+      isOption = true;
       if (i == (myOpts.length -1)) {
         console.log('Last Element of the list');
         routineInput.value = myOpts[0].value;
@@ -127,6 +136,11 @@ function routineActionLeft_update() {
         break;
       }
     }
+  }
+
+  if(!isOption) {
+    console.log('isOption: ' + isOption)
+    routineInput.value = myOpts[0].value;
   }
 
 }

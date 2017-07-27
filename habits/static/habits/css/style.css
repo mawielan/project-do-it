@@ -55,7 +55,7 @@
 }
 
 .custom-accordion-inactive {
-  background-color: lightgrey;
+  background-color: grey;
   color: #444;
   cursor: pointer;
   /*padding: 18px;*/

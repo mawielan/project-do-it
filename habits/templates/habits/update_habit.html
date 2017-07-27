@@ -98,7 +98,7 @@ Update
           <div class="container">
             <div id="section-row" class="row" style="margin-top: 36px; padding-left: 31px;">
               <div class="col">
-                <a id="section-icon-bottom" class="btn btn-default" aria-label="Left Align" >
+                <a id="section-icon-bottom" class="btn btn-default" aria-label="Left Align" href="{% url 'delete_habit' habit.pk %}">
                   <i class="fa fa-trash fa-2x" aria-hidden="true"></i>
                 </a>
               </div>
@@ -110,6 +110,7 @@ Update
               <div class="col">
                 <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">
                   <i class="fa fa-comments fa-2x" aria-hidden="true"></i>
+                  <span id="numberOfComments_{{habit.id}}" class="badge"></span>
                 </button>
               </div>
               <div class="col">

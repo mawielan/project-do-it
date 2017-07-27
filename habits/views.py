@@ -124,11 +124,12 @@ def set_state(request):
             else:
                 habitWhichChangeState.is_active = False;
 
-
             if (habitWhichChangeState.is_active):
                 for habit in habits:
                     habit.priority += 1
                     habit.save()
+                habitWhichChangeState.priority = 1;
+                
             else:
                 habitWhichChangeState.priority = badNumber;
             habitWhichChangeState.save()
@@ -151,10 +152,16 @@ def update_habit_complete(request):
             habit_trigger = request.POST.get('habit_trigger')
             habit_routine = request.POST.get('habit_routine')
             habit_targetbehavior = request.POST.get('habit_targetbehavior')
-            habit_image = request.POST.get('habit_image')
-            print(habit_image)
+            # habit_image = request.POST.get('habit_image')
+            # print(habit_image)
+            #
+            # image = habit_image.split('http://localhost:8000/media')
 
-            image = habit_image.split('http://localhost:8000/media')
+            print('id: ' + habitToUpdate_id)
+            print('title: ' + habit_title)
+            print('trigger: ' + habit_trigger)
+            print('routine: ' + habit_routine)
+            print('targetbehavior: ' + habit_targetbehavior)
 
             try:
                 obj_habit = Habit.objects.get(id=habitToUpdate_id, created_by=request.user.userprofile)

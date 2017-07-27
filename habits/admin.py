@@ -7,7 +7,7 @@ from habits.models import Habit, Existingroutine, Targetbehavior, Comment
 
 @admin.register(Habit)
 class HabitAdmin(admin.ModelAdmin):
-    list_display = ('priority', 'title', 'trigger', 'existingroutine', 'targetbehavior', 'image', 'created_by', 'is_active', 'triggered_at_time', 'triggered_at_date')
+    list_display = ('id', 'priority', 'title', 'trigger', 'existingroutine', 'targetbehavior', 'image', 'created_by', 'is_active', 'triggered_at_time', 'triggered_at_date')
     actions = ['make_active', 'make_inactive']
 
     def make_active(self, request, queryset):

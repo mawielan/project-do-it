@@ -189,18 +189,27 @@ function addEvent(ele, evnt, funct) {
 }
 
 function triggerActionLeft () {
-  var myOpts = document.getElementById('id_trigger').options;
-  var caroInput = document.getElementById('carousel-input-trigger');
+  isOption = false;
+  myOpts = document.getElementById('id_trigger').options;
+  caroInput = document.getElementById('carousel-input-trigger');
   caroInput.disabled = true;
-  if (caroInput.value == myOpts[0].value) {
-    caroInput.value = myOpts[1].value;
-  } else if (caroInput.value == myOpts[1].value) {
-    caroInput.value = myOpts[2].value;
-  } else if (caroInput.value == myOpts[2].value) {
-    caroInput.value = myOpts[3].value;
-  } else if (caroInput.value == myOpts[3].value) {
-    caroInput.value = myOpts[4].value;
-  } else {
+
+  for (var i = 0; i < myOpts.length; i++) {
+
+    if (caroInput.value == myOpts[i].value) {
+      isOption = true;
+      if (i == (myOpts.length -1)) {
+        console.log('Last Element of the list');
+        caroInput.value = myOpts[0].value;
+        break;
+      } else {
+        caroInput.value = myOpts[i+1].value;
+        break;
+      }
+    }
+  }
+
+  if (!isOption) {
     caroInput.value = myOpts[0].value;
   }
 }
@@ -210,12 +219,13 @@ function triggerActionRight() {
   var triggerInput = document.getElementById('carousel-input-trigger');
   triggerInput.disabled = false;
   triggerInput.focus();
-  triggerInput.value = "no trigger";
+  triggerInput.value = "";
+  triggerInput.placeholder = "Neuer Trigger";
 }
 
 function routineActionLeft() {
   console.log('routineActionLeft is fired!');
-  var isOption = false;
+  isOption = false;
   var myOpts = document.getElementById('select-routines').options;
   console.log(myOpts);
   var routineInput = document.getElementById('carousel-input-routine');
@@ -254,7 +264,7 @@ function routineActionRight() {
 
 function targetbehaviorActionLeft() {
   console.log('targetbehaviorActionLeft is fired!');
-  var isOption = false;
+  isOption = false;
   var myOpts = document.getElementById('select-targetbehaviors').options;
   var targetbehaviorInput = document.getElementById('carousel-input-targetbehavior');
   var habit_title = document.getElementById('habit-title');
