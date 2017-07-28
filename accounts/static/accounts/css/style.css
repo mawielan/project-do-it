@@ -80,7 +80,7 @@ input {
 }
 
 #id_btn_register {
-  -webkit-appearance: none;
+  /*-webkit-appearance: none;
   position: fixed;
   right: 30px;
   bottom: 30px;
@@ -90,11 +90,11 @@ input {
   color: #fff;
   font-size: 20px;
   font-weight: bold;
-  box-shadow: 0px 6px 5px #888888;
+  box-shadow: 0px 6px 5px #888888;*/
 }
 
 #id_btn_login {
-  -webkit-appearance: none;
+  /*-webkit-appearance: none;
   position: fixed;
   right: 30px;
   bottom: 30px;
@@ -104,7 +104,7 @@ input {
   color: #fff;
   font-size: 20px;
   font-weight: bold;
-  box-shadow: 0px 6px 5px #888888;
+  box-shadow: 0px 6px 5px #888888;*/
 }
 
 #id_btn_pw_forgot {

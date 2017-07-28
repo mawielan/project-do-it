@@ -1,5 +1,9 @@
+// jquery
+var $accordions =   $('.accordion');
+
 
 var acc = document.getElementsByClassName("accordion");
+
 var i;
 var isAddCommentModeActive = false;
 var isDisplayCommentsModeActive = false;
@@ -15,7 +19,7 @@ for (i = 0; i < acc.length; i++) {
     if (panel.style.maxHeight) {                // If panel is open
       console.log('Panel wird geschlossen.');
 
-      $('.accordion').prop('disabled', false);
+      $accordions.prop('disabled', false);
 
       for (j = 0; j < sessionStorage.length; j++) {
         console.log(sessionStorage.key(j));
@@ -78,46 +82,8 @@ for (i = 0; i < acc.length; i++) {
 
 window.onload = function() {
   console.log('window.onload was clicked');
-  // console.log(referenceList_numberOfComments);
-  // console.log(window.location.pathname);
-  // console.log(sessionStorage);
-  // console.log(sessionStorage.getItem('habitToDeleteGetFocusBack'));
-  // console.log(sessionStorage.getItem('habitAfterPostComment'));
-  // if (sessionStorage['habitToDeleteGetFocusBack'] && window.location.pathname == "/overview/") {
-  //   console.log("There is 'habitToDeleteGetFocusBack' in session storage ");
-  //   if (typeof(document.getElementById(sessionStorage.getItem('habitToDeleteGetFocusBack'))) != undefined && document.getElementById(sessionStorage.getItem('habitToDeleteGetFocusBack')) != null) {
-  //     document.getElementById(sessionStorage.getItem('habitToDeleteGetFocusBack')).classList.toggle("active");
-  //     var panel =   document.getElementById(sessionStorage.getItem('habitToDeleteGetFocusBack')).nextElementSibling;
-  //     if (panel.style.maxHeight){
-  //       panel.style.maxHeight = null;
-  //     } else {
-  //       panel.style.maxHeight = panel.scrollHeight + "px";
-  //     }
-  //   }
-  //   sessionStorage.removeItem("habitToDeleteGetFocusBack");
-  // }
-
-
-  // if (sessionStorage.length > 0) {
-  //   for (i = 0; i < sessionStorage.length; i++) {
-  //     console.log(sessionStorage.key(i));
-  //     document.getElementById(sessionStorage.key(i)).classList.toggle('active');
-  //     var panel =   document.getElementById(sessionStorage.key(i)).nextElementSibling;
-  //
-  //     console.log(referenceList_numberOfComments['numberOfComments_' + sessionStorage.key(i).split('accordion_')[1]]);
-  //     if (referenceList_numberOfComments['numberOfComments_' + sessionStorage.key(i).split('accordion_')[1]]) {
-  //       console.log("asas");
-  //       document.getElementById('numberOfComments_' + sessionStorage.key(i).split('accordion_')[1]).innerHTML = 1;
-  //
-  //     }
-  //
-  //     panel.style.maxHeight = panel.scrollHeight + "px";
-  //
-  //   }
-  // } else {
-  //   console.log('sessionStorage is empty');
-  // }
-
+  console.log(window.location.href);
+  console.log(window.location);
 }
 
 

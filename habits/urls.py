@@ -9,6 +9,8 @@ urlpatterns = [
 
     url(r'^position/$', habits_views.locate_position, name='locate_position'),
 
+    
+
     url(r'^habit/(?P<pk>\d+)$', habits_views.HabitDetailView.as_view(), name='display_habit_details'),
     url(r'^habit/(?P<pk>\d+)/update$', habits_views.HabitUpdateView.as_view(), name='update_habit'),
     url(r'^habit/update/complete$', habits_views.update_habit_complete, name='update_habit_complete'),

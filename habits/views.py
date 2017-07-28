@@ -138,8 +138,6 @@ def set_state(request):
             data = {'habitWhichChangeID': habit_id}
             return JsonResponse(data)
 
-
-
 def update_habit_complete(request):
     print('update_habit_complete')
     if (request.method == 'POST'):
@@ -534,35 +532,35 @@ class HabitListView(ListView):
     def get_queryset(self):
         print('get_queryset_HabitListView')
         queryset = Habit.objects.filter(created_by=self.request.user.id)
-        if (len(queryset) == 0):
-            print(len(queryset))
-            print('Keine Habits vorhanden')
-
-            # TODO: könnte man ersetzen durch eine json file mit habits.
-            routine1 = Existingroutine(name="meine Tasse auf dem Tisch abstelle,", created_by=self.request.user.userprofile)
-            routine2 = Existingroutine(name="meine Mappe auf dem Tisch ablege", created_by=self.request.user.userprofile)
-
-            # save routines in db
-            routine1.save()
-            routine2.save()
-
-            targetbehavior1 = Targetbehavior(name="gebe ich den Zeitplan des heutigen Meetings bekannt.", created_by=self.request.user.userprofile)
-            targetbehavior2 = Targetbehavior(name="stelle ich die Uhr auf...", created_by=self.request.user.userprofile)
-            targetbehavior3 = Targetbehavior(name="erinnere ich das Team an die verbleibende Zeit.", created_by=self.request.user.userprofile)
-
-            # save targetbehaviors in db
-            targetbehavior1.save()
-            targetbehavior2.save()
-            targetbehavior3.save()
-
-            habit1 = Habit(created_by=self.request.user.userprofile, title="Verhaltensnugget#1", existingroutine=routine1, targetbehavior=targetbehavior1, trigger=Habit.TRIGGER_OPTION_1, image="habit_image/icon_27774228454_5b8fe69dd7_q.jpg")
-            habit2 = Habit(created_by=self.request.user.userprofile, title="Verhaltensnugget#2", existingroutine=routine1, targetbehavior=targetbehavior2, trigger=Habit.TRIGGER_OPTION_1, image="habit_image/icon_26856987_a9c88043d3_q.jpg")
-            habit3 = Habit(created_by=self.request.user.userprofile, title="Verhaltensnugget#3", existingroutine=routine2, targetbehavior=targetbehavior3, trigger=Habit.TRIGGER_OPTION_1,  image="habit_image/Kompetenzz_17752__DSC5803.jpg")
-            habit1.save()
-            habit2.save()
-            habit3.save()
-
-        print(len(queryset))
+        # if (len(queryset) == 0):
+        #     print(len(queryset))
+        #     print('Keine Habits vorhanden')
+        #
+        #     # TODO: könnte man ersetzen durch eine json file mit habits.
+        #     routine1 = Existingroutine(name="meine Tasse auf dem Tisch abstelle,", created_by=self.request.user.userprofile)
+        #     routine2 = Existingroutine(name="meine Mappe auf dem Tisch ablege", created_by=self.request.user.userprofile)
+        #
+        #     # save routines in db
+        #     routine1.save()
+        #     routine2.save()
+        #
+        #     targetbehavior1 = Targetbehavior(name="gebe ich den Zeitplan des heutigen Meetings bekannt.", created_by=self.request.user.userprofile)
+        #     targetbehavior2 = Targetbehavior(name="stelle ich die Uhr auf...", created_by=self.request.user.userprofile)
+        #     targetbehavior3 = Targetbehavior(name="erinnere ich das Team an die verbleibende Zeit.", created_by=self.request.user.userprofile)
+        #
+        #     # save targetbehaviors in db
+        #     targetbehavior1.save()
+        #     targetbehavior2.save()
+        #     targetbehavior3.save()
+        #
+        #     habit1 = Habit(created_by=self.request.user.userprofile, title="Verhaltensnugget#1", existingroutine=routine1, targetbehavior=targetbehavior1, trigger=Habit.TRIGGER_OPTION_1, image="habit_image/icon_27774228454_5b8fe69dd7_q.jpg")
+        #     habit2 = Habit(created_by=self.request.user.userprofile, title="Verhaltensnugget#2", existingroutine=routine1, targetbehavior=targetbehavior2, trigger=Habit.TRIGGER_OPTION_1, image="habit_image/icon_26856987_a9c88043d3_q.jpg")
+        #     habit3 = Habit(created_by=self.request.user.userprofile, title="Verhaltensnugget#3", existingroutine=routine2, targetbehavior=targetbehavior3, trigger=Habit.TRIGGER_OPTION_1,  image="habit_image/Kompetenzz_17752__DSC5803.jpg")
+        #     habit1.save()
+        #     habit2.save()
+        #     habit3.save()
+        #
+        # print(len(queryset))
         print(queryset)
         return queryset
 

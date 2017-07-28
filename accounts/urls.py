@@ -6,7 +6,7 @@ from django.contrib.auth.views import (
     )
 urlpatterns = [
     url(r'^$', include('habits.urls')),
-    url(r'^login/$', login, {'template_name': 'accounts/login.html'}, name='login'),
+    url(r'^login/$', login, {'template_name': 'accounts/login_newVersion.html'}, name='login'),
     url(r'^login/reset_password/$', password_reset, {'template_name': 'accounts/reset_password.html'}, name='password_reset'),
     url(r'^login/reset_password/done/$', password_reset_done, {'template_name': 'accounts/reset_password_done.html'}, name='password_reset_done'),
     url(r'^login/reset_password/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', password_reset_confirm, {'template_name': 'accounts/reset_password_confirm.html'}, name='password_reset_confirm'),

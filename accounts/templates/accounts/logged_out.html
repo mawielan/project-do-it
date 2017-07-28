@@ -2,8 +2,8 @@
 
 {% load staticfiles %}
 {% block head %}
-  <!-- <link rel="stylesheet" type="text/css" href="{% static 'accounts/style.css' %}" /> -->
   <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/style.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/login_style.css' %}" />
 {% endblock %}
 
 {% block title %}See you!{% endblock %}
@@ -11,8 +11,10 @@
 {% block body %}
   <div class="container">
     <br>
-    <h2 style="text-align:center;">Logged out</h2>
-    <hr>
+    <br>
+    <br>
+    <!-- <h2 style="text-align:center;">Logged out</h2>
+    <hr> -->
     <p style="text-align:center;">Sie haben sich erfolgreich abgemeldet.</p>
     <!-- <p style="text-align:center;"><a href="{% url 'login' %}">Log in</a> again.</p> -->
   </div>
