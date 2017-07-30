@@ -19,7 +19,8 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.core import serializers
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-
+import base64
+from django.core.files.base import ContentFile
     # Habit
 
 def create_habit(request):
@@ -150,8 +151,14 @@ def update_habit_complete(request):
             habit_trigger = request.POST.get('habit_trigger')
             habit_routine = request.POST.get('habit_routine')
             habit_targetbehavior = request.POST.get('habit_targetbehavior')
-            # habit_image = request.POST.get('habit_image')
-            # print(habit_image)
+            habit_image = request.POST.get('habit_image')
+            print(habit_image)
+            habit_image = habit_image.split('base64,', 1 )
+            print(habit_image)
+            habit_image = base64.b64decode(habit_image[1])
+            image_name = request.POST.get('image_name')
+
+
             #
             # image = habit_image.split('http://localhost:8000/media')
 
@@ -190,6 +197,17 @@ def update_habit_complete(request):
             obj_habit.trigger = habit_trigger;
             obj_habit.existingroutine = obj_routine;
             obj_habit.targetbehavior = obj_targetbehavior;
+
+            # check if habit has already an image
+            print(obj_habit.image)
+
+            if (obj_habit.image):
+                obj_habit.image.delete(save=True)
+
+
+            obj_habit.image = ContentFile(habit_image, image_name)
+
+
             obj_habit.save();
             # habit = Habit(created_by=request.user.userprofile, is_active=True,
             # title=habit_title, trigger=habit_trigger, existingroutine=obj_routine,
@@ -214,22 +232,22 @@ def save_habit(request):
             habit_title = request.POST.get('habit_title')
             habit_trigger = request.POST.get('habit_trigger')
             habit_routine = request.POST.get('habit_routine')
-            print(habit_routine);
             habit_targetbehavior = request.POST.get('habit_targetbehavior')
-            habit_image = request.POST.get('habit_image')
-            print(habit_image)
-
-            image = habit_image.split('http://localhost:8000/media')
-            # print(image[1])
+            habit_imageBase64Decode = request.POST.get('habit_image')
+            # print(habit_image)
+            habit_imageSplit = habit_imageBase64Decode.split('base64,', 1 )
+            # print(habit_image)
+            habit_image = base64.b64decode(habit_imageSplit[1])
+            image_name = request.POST.get('habit_image_name')
 
             try:
-                obj_routine = Existingroutine.objects.get(name=habit_routine)
+                obj_routine = Existingroutine.objects.get(name=habit_routine, created_by=request.user.userprofile)
             except Existingroutine.DoesNotExist:
                 obj_routine = Existingroutine(name=habit_routine, created_by=request.user.userprofile)
                 obj_routine.save()
 
             try:
-                obj_targetbehavior = Targetbehavior.objects.get(name=habit_targetbehavior)
+                obj_targetbehavior = Targetbehavior.objects.get(name=habit_targetbehavior, created_by=request.user.userprofile)
             except Targetbehavior.DoesNotExist:
                 obj_targetbehavior = Targetbehavior(name=habit_targetbehavior, created_by=request.user.userprofile)
                 obj_targetbehavior.save()
@@ -239,16 +257,27 @@ def save_habit(request):
                 habit.priority += 1;
                 habit.save();
 
-            habit = Habit(created_by=request.user.userprofile, is_active=True,
-            title=habit_title, trigger=habit_trigger, existingroutine=obj_routine,
-            targetbehavior=obj_targetbehavior, image=image[1])
 
-            habit.save()
+            print(habit_image)
+            # prent(image_name)
+            obj_habit = Habit(created_by=request.user.userprofile, is_active=True)
+            obj_habit.title = habit_title;
+            obj_habit.trigger = habit_trigger;
+            obj_habit.existingroutine = obj_routine;
+            obj_habit.targetbehavior = obj_targetbehavior;
+            obj_habit.image = ContentFile(habit_image, image_name)
+
+            # habit = Habit(created_by=request.user.userprofile, is_active=True,
+            # title=habit_title, trigger=habit_trigger, existingroutine=obj_routine,
+            # targetbehavior=obj_targetbehavior, image=ContentFile(habit_image, image_name))
+
+            obj_habit.save()
 
             data = {"habit_title":habit_title,
                     "habit_trigger":habit_trigger,
                     "habit_routine":habit_routine,
                     "habit_targetbehavior":habit_targetbehavior };
+
             return JsonResponse(data)
     return redirect('display_habits')
 

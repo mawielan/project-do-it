@@ -27,10 +27,15 @@ Update
             <textarea value="{{habit.title}}" id="habit-title" type="text" style="resize:none;border: none;">{{habit.title}}</textarea>
           </div>
           <div class="col-xs-4">
-            <img id="create-habit-img" class="media-object" src="/media/habit_image/no_image_placeholder.png" width=75 height=75>
+
+            <!-- <img id="create-habit-img" class="media-object" src="/media/habit_image/no_image_placeholder.png" width=75 height=75> -->
+            <input type="image" id="update_habit_img" {% if habit.image %}src="{{habit.image_url}}"{% else %} src="/media/habit_image/no_image_placeholder.png" {% endif %}  width=75 height=75 />
+            <input type="file" id="edit_file" onchange="readURL(this);" />
+            <!-- style="display:none;"  -->
           </div>
         </div>
       </button>
+
 
       <div class="panel" style="min-height: 340px; padding-left: 0px;">
         <br>

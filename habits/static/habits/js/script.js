@@ -98,64 +98,6 @@ if (typeof(accToCreate) != undefined && accToCreate != null) {
     panel.style.maxHeight = 236 + "px";
   }
 }
-//
-// if (document.getElementById('habit-title') != null &&   document.getElementById('habit-title').value == "" ) {
-//   console.log('FIRE');
-//   document.getElementById('habit-title').value = document.getElementById('carousel-input-targetbehavior').value;
-// }
-
-// if (document.getElementById('carousel-input-targetbehavior') != null && document.getElementById('habit-title') != null) {
-//
-//     addEvent(document.getElementById('carousel-input-targetbehavior'), 'keyup', function () {
-//       if (document.getElementById('habit-title')) {
-//         document.getElementById('habit-title').value = this.value.replace(' ', '_');
-//       }
-//
-//     });
-//
-// }
-
-
-
-// $('#file').on('click touchstart' , function(){
-//     $(this).val('');
-// });
-//
-//
-// //Trigger now when you have selected any file
-// $("#file").change(function(e) {
-//
-// }
-// //For image uploading
-// function previewFile(){
-//     var preview = document.getElementById('create-habit-img'); //selects the query named img
-//     var file    = document.querySelector('input[type=file]').files[0]; //sames as here
-//     var reader  = new FileReader();
-//
-//     reader.onloadend = function () {
-//         preview.src = reader.result;
-//     }
-//
-//     if (file) {
-//         reader.readAsDataURL(file); //reads the data as a URL
-//     } else {
-//         preview.src = "/media/habit_image/no_image_placeholder.png";
-//     }
-// }
-//
-// // previewFile();  //calls the function named previewFile()
-
-
-//Connect habit title and target behavior
-function addEvent(ele, evnt, funct) {
-  if (ele.addEventListener) // W3C
-    return ele.addEventListener(evnt,funct,false);
-  else if (ele.attachEvent)  // IE
-    return ele.attachEvent("on"+evnt,funct);
-}
-
-
-
 
 function routineActionLeft() {
   console.log('routineActionLeft is fired!');
@@ -354,51 +296,7 @@ function click(id) {
 }
 
 
-// Create new habit
-$("#save-habit-icon").click(function(e) {
 
- e.preventDefault();
-
- var csrftoken = getCookie('csrftoken');
-
- var habit_title = document.getElementById('habit-title').value;
- var habit_trigger = document.getElementById('carousel-input-trigger').value;
- var habit_routine = document.getElementById('carousel-input-routine').value;
- var habit_targetbehavior = document.getElementById('carousel-input-targetbehavior').value;
- var habit_image = document.getElementById('create-habit-img').src  ;
- // alert(habit_image);
-
-
-
-//This is the Ajax post.Observe carefully. It is nothing but details of where_to_post,what_to_post
-
- $.ajax({
-   url : "/overview/habit/save/", // the endpoint,commonly same url
-   type : "POST", // http method
-   data : { csrfmiddlewaretoken : csrftoken,
-             habit_title : habit_title,
-             habit_trigger : habit_trigger,
-             habit_routine : habit_routine,
-             habit_targetbehavior : habit_targetbehavior,
-             habit_image : habit_image,
-
-    }, // data sent with the post request
-
- // handle a successful response
- success : function(json) {
-    console.log(json); // another sanity check
-    // Create lag time before redirecting
-    setTimeout(function() {
-      window.location.href = "/overview";
-    }, 2000);
-  },
-
-  // handle a non-successful response
-  error : function(xhr,errmsg,err) {
-    console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
-  }
- });
-});
 
 
 

@@ -24,3 +24,8 @@
 #update-carousel-targetbehavior-btn-right {
   border: none;
 }
+
+#update_habit_img {
+  margin-right: 40px;
+  border-radius: 100%;
+}

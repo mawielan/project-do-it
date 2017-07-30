@@ -1,3 +1,23 @@
+var nameOfImage;
+
+function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            console.log(input.files[0]);
+            nameOfImage = input.files[0].name;
+            console.log(nameOfImage);
+            reader.onload = function (e) {
+                $('#update_habit_img')
+                    .attr('src', e.target.result)
+                    .width(75)
+                    .height(75);
+                console.log(e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+}
+
 $('button').prop('disabled', true);
 
 if (typeof(document.getElementById('id_habitToUpdate')) && document.getElementById('id_habitToUpdate') != null) {
@@ -38,10 +58,23 @@ $("#update-habit-icon").click(function(e) {
   var habit_trigger = document.getElementById('carousel-input-trigger').value;
   var habit_routine = document.getElementById('carousel-input-routine').value;
   var habit_targetbehavior = document.getElementById('carousel-input-targetbehavior').value;
-  var habit_image = document.getElementById('create-habit-img').src  ;
-  // alert(habit_image);
+  var habit_image = document.getElementById('update_habit_img').src;
 
- //This is the Ajax post.Observe carefully. It is nothing but details of where_to_post,what_to_post
+  // filename = document.getElementById('edit_file').input.files[0].name;
+  // type = document.getElementById('edit_file').input.files[0].type;
+  // alert(filename);
+  // alert(type);
+  // document.getElementById('edit_file')
+
+  // Get name of image
+  console.log(nameOfImage);
+
+  // Get type of image
+  type = document.getElementById('update_habit_img').src.split('data:image/');
+  type = type[1].split(';');
+  console.log(type[0]);
+
+ // //This is the Ajax post.Observe carefully. It is nothing but details of where_to_post,what_to_post
   $.ajax({
       url : "/overview/habit/update/complete", // the endpoint,commonly same url manuell eingeben!
       type : "POST", // http method
@@ -52,6 +85,8 @@ $("#update-habit-icon").click(function(e) {
                 habit_routine : habit_routine,
                 habit_targetbehavior : habit_targetbehavior,
                 habit_image : habit_image,
+                image_name : nameOfImage,
+                image_type : type[0],
 
       }, // data sent with the post request
 
