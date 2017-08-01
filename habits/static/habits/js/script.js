@@ -99,92 +99,6 @@ if (typeof(accToCreate) != undefined && accToCreate != null) {
   }
 }
 
-function routineActionLeft() {
-  console.log('routineActionLeft is fired!');
-  isOption = false;
-  var myOpts = document.getElementById('select-routines').options;
-  console.log(myOpts);
-  var routineInput = document.getElementById('carousel-input-routine');
-
-  routineInput.disabled = true;
-
-  for (var i = 0; i < myOpts.length; i++) {
-
-    if (routineInput.value == myOpts[i].value) {
-      isOption = true;
-      if (i == (myOpts.length -1)) {
-        console.log('Last Element of the list');
-        routineInput.value = myOpts[0].value;
-        break;
-      } else {
-        routineInput.value = myOpts[i+1].value;
-        break;
-      }
-    }
-  }
-
-  if (!isOption) {
-    routineInput.value = myOpts[0].value;
-  }
-}
-
-function routineActionRight() {
-  console.log('routineActionRight is fired!');
-  var routineInput = document.getElementById('carousel-input-routine');
-  routineInput.disabled = false;
-  routineInput.focus();
-  routineInput.value = "";
-  routineInput.placeholder = "Neue Routine";
-
-}
-
-function targetbehaviorActionLeft() {
-  console.log('targetbehaviorActionLeft is fired!');
-  isOption = false;
-  var myOpts = document.getElementById('select-targetbehaviors').options;
-  var targetbehaviorInput = document.getElementById('carousel-input-targetbehavior');
-  var habit_title = document.getElementById('habit-title');
-  targetbehaviorInput.disabled = true;
-
-  for (var i = 0; i < myOpts.length; i++) {
-    console.log(i);
-    console.log('targetbehaviorInput: ' + targetbehaviorInput.value);
-
-    if (targetbehaviorInput.value == myOpts[i].value) {
-      isOption = true;
-      if (i == (myOpts.length -1)) {
-        console.log('Last Element of the list');
-        targetbehaviorInput.value = myOpts[0].value;
-        habit_title.value = targetbehaviorInput.value;
-        console.log(targetbehaviorInput.value);
-        break;
-      } else {
-        targetbehaviorInput.value = myOpts[i+1].value;
-        console.log(targetbehaviorInput.value);
-        habit_title.value = targetbehaviorInput.value;
-        break;
-      }
-
-
-    }
-  }
-
-  if (!isOption) {
-    targetbehaviorInput.value = myOpts[0].value;
-    habit_title.value = targetbehaviorInput.value;
-  }
-}
-
-
-
-function targetbehaviorActionRight() {
-  console.log('targetbehaviorActionRight is fired!');
-  var targetbehaviorInput = document.getElementById('carousel-input-targetbehavior');
-  targetbehaviorInput.disabled = false;
-  targetbehaviorInput.focus();
-  targetbehaviorInput.value = "";
-  targetbehaviorInput.placeholder = "Neues Zielverhalten";
-}
 
 carousel = (function(){
   if (typeof(document.querySelector('.carouselbox')) != undefined && document.querySelector('.carouselbox') != null) {
@@ -347,24 +261,6 @@ $(function () {
     // console.log(sorted)
 })
 
-
-
-//For getting CSRF token
-function getCookie(name) {
-       var cookieValue = null;
-       if (document.cookie && document.cookie != '') {
-         var cookies = document.cookie.split(';');
-         for (var i = 0; i < cookies.length; i++) {
-         var cookie = jQuery.trim(cookies[i]);
-         // Does this cookie string begin with the name we want?
-         if (cookie.substring(0, name.length + 1) == (name + '=')) {
-             cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-             break;
-          }
-     }
- }
- return cookieValue;
-}
 
 
 

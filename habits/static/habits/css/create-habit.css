@@ -1,3 +1,11 @@
+.custom-row-full-width {
+  width: 100%
+}
+
+.section-icon-bottom {
+	margin-right: 10px;
+	border: none;
+}
 #create-carousel-trigger-btn-left {
   border: none;
 }

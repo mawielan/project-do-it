@@ -63,8 +63,7 @@ input[type="password"]:focus{
   font-weight: bold;
 }
 
-
-a {
+.login-alternatives {
   color: #0080FF;
   font-size: 10px;
 }

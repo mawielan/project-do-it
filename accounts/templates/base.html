@@ -35,27 +35,32 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-
           <a class="navbar-brand custom-navbar-brand" href="{% url 'display_habits'%}"> DO IT!</a>
-          {% block button_right_corner %}
+
           {% if user.is_authenticated %}
-          <a id="quill_icon" class="btn btn-default" href="{% url 'display_habitToCreate' %}"> <img src="/media/icons/icon_quill.png" width=50 height=50 /> </a>
+            {% block button_right_corner %}
+              <a id="quill_icon" class="btn btn-default" href="{% url 'display_habitToCreate' %}"> <img src="/media/icons/icon_quill.png" width=50 height=50 /> </a>
+            {% endblock %}
           {% endif %}
-          {% endblock %}
-          <!-- Habitus-Training Transfer -->
+
+
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           {% if user.is_authenticated %}
           <ul class="nav navbar-nav navbar-right">
-            <li style="display:-webkit-box"><a href="{% url 'view_profile' %}">{{ user }}</a>
+            <li style="display:-webkit-box">
+              <a href="{% url 'view_profile' %}">{{ user }}</a>
               <img src="{{ user.userprofile.image_url }}" class="avatar img-responsive">
-              <!-- <a id="logout-glyphicon" href="{% url 'logout' %}">  <i class="fa fa-sign-out fa-2x" aria-hidden="true"></i>    </a> -->
             </li>
             <li>
               <a href="{% url 'edit_profile' %}">Profil bearbeiten</a>
             </li>
             <li>
               <a href="{% url 'logout' %}">Abmelden</a>
+            </li>
+            <li>
+              <hr>
+              <a href="{% url 'display_habitToCreate' %}">Verhaltensnugget erstellen</a>
             </li>
 
             <!-- <li>
@@ -97,8 +102,8 @@
   <script src="{% static 'habits/js/jquery.bootstrap-touchspin.js' %}"></script>
   <script src="{% static 'habits/js/jquery.ui.touch-punch.js' %}"></script>
   <!-- <script src="{% static 'habits/js/jquery.ui.touch-punch.min.js' %}"></script> -->
-  <script type="text/javascript" src="{% static 'habits/js/script.js' %}"></script>
-  <script type="text/javascript" src="{% static 'habits/js/comment.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/utilise.js' %}"></script>
+
 
   {% block script %}
   {% endblock %}

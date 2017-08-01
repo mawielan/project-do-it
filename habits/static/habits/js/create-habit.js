@@ -1,13 +1,40 @@
 var nameOfImage_create = null;
 
-$('button').prop('disabled', true);
+var otherAccordions = document.getElementsByClassName("accordion");
+for (i = 0; i < otherAccordions.length; i++) {        // Disable other accordions
+  otherAccordions[i].disabled = true;
+}
+
+var sectionButtonsButtom = document.getElementsByClassName("section-icon-bottom");
+for (i = 0; i <sectionButtonsButtom.length; i++) {   // Disable section buttons at bottom
+  sectionButtonsButtom[i].disabled = true;
+}
+
+var sectionButtonsTop = document.getElementsByClassName("section-icon-top");
+for (i = 0; i <sectionButtonsTop.length; i++) {   // Disable section buttons at bottom
+  sectionButtonsTop[i].disabled = true;
+}
+
+$('#create_habit_img').on("click", function() {
+  $('#create_file').click();
+});
+
+
+$('#carousel-input-targetbehavior').bind('input propertychange', function() {
+  var habit_title_input = document.getElementById('habit-title');
+  habit_title_input.value = this.value;
+});
+
+var habitToCreate = document.getElementById("id_habitToCreate");
+habitToCreate.classList.toggle("active");
+
 
 function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             console.log(input.files[0]);
             nameOfImage_create = input.files[0].name;
-      
+
             reader.onload = function (e) {
                 $('#create_habit_img')
                     .attr('src', e.target.result)
@@ -18,24 +45,6 @@ function readURL(input) {
 
             reader.readAsDataURL(input.files[0]);
         }
-}
-
-if (typeof(document.getElementById('id_habitToCreate')) != undefined && document.getElementById('id_habitToCreate') != null) {
-  $('.btn-arrow').prop('disabled', false);
-  document.getElementById('save-habit-icon').disabled = false;
-    console.log($('#carousel-btn-right').offset());
-    console.log($('#carousel-btn-left').offset());
-
-    setTimeout(function(e) {
-      console.log($('#carousel-btn-right').offset());
-      console.log($('#carousel-btn-left').offset());
-
-    }, 1000)
-    // $('#carousel-btn-right').each(function() {
-  //   $('#carousel-btn-right').prop('disabled', false);
-  //   // do something
-  // });
-  // $('#carousel-btn-right').prop('disabled', false);
 }
 
 
@@ -77,8 +86,98 @@ function triggerActionRight() {
   triggerInput.placeholder = "Neuer Trigger";
 }
 
+// ROUTINE ACTION LEFT
+function routineActionLeft() {
+  console.log('routineActionLeft is fired!');
+  isOption = false;
+  var myOpts = document.getElementById('select-routines').options;
+  console.log(myOpts);
+  var routineInput = document.getElementById('carousel-input-routine');
+
+  routineInput.disabled = true;
+
+  for (var i = 0; i < myOpts.length; i++) {
+
+    if (routineInput.value == myOpts[i].value) {
+      isOption = true;
+      if (i == (myOpts.length -1)) {
+        console.log('Last Element of the list');
+        routineInput.value = myOpts[0].value;
+        break;
+      } else {
+        routineInput.value = myOpts[i+1].value;
+        break;
+      }
+    }
+  }
+
+  if (!isOption) {
+    routineInput.value = myOpts[0].value;
+  }
+}
+
+// ROUTINE ACTION RIGHT
+function routineActionRight() {
+  console.log('routineActionRight is fired!');
+  var routineInput = document.getElementById('carousel-input-routine');
+  routineInput.disabled = false;
+  routineInput.focus();
+  routineInput.value = "";
+  routineInput.placeholder = "Neue Routine";
+
+}
+
+// TARGETBEHAVIOR ACTION RIGHT
+function targetbehaviorActionLeft() {
+  console.log('targetbehaviorActionLeft is fired!');
+  isOption = false;
+  var myOpts = document.getElementById('select-targetbehaviors').options;
+  var targetbehaviorInput = document.getElementById('carousel-input-targetbehavior');
+  var habit_title = document.getElementById('habit-title');
+  targetbehaviorInput.disabled = true;
+
+  for (var i = 0; i < myOpts.length; i++) {
+    console.log(i);
+    console.log('targetbehaviorInput: ' + targetbehaviorInput.value);
+
+    if (targetbehaviorInput.value == myOpts[i].value) {
+      isOption = true;
+      if (i == (myOpts.length -1)) {
+        console.log('Last Element of the list');
+        targetbehaviorInput.value = myOpts[0].value;
+        habit_title.value = targetbehaviorInput.value;
+        console.log(targetbehaviorInput.value);
+        break;
+      } else {
+        targetbehaviorInput.value = myOpts[i+1].value;
+        console.log(targetbehaviorInput.value);
+        habit_title.value = targetbehaviorInput.value;
+        break;
+      }
+
+
+    }
+  }
+
+  if (!isOption) {
+    targetbehaviorInput.value = myOpts[0].value;
+    habit_title.value = targetbehaviorInput.value;
+  }
+}
+
+
+// TARGETBEHAVIOR ACTION LEFT
+function targetbehaviorActionRight() {
+  console.log('targetbehaviorActionRight is fired!');
+  var targetbehaviorInput = document.getElementById('carousel-input-targetbehavior');
+  targetbehaviorInput.disabled = false;
+  targetbehaviorInput.focus();
+  targetbehaviorInput.value = "";
+  targetbehaviorInput.placeholder = "Neues Zielverhalten";
+}
+
 // Create new habit
-$("#save-habit-icon").click(function(e) {
+$("#save_habit_icon").click(function(e) {
 
  e.preventDefault();
 
@@ -111,7 +210,6 @@ $("#save-habit-icon").click(function(e) {
  // handle a successful response
  success : function(json) {
     console.log(json); // another sanity check
-    alert(json['habit_title'], json['habit_trigger'], json['habit_routine'], json['habit_targetbehavior'])
     setTimeout(function() {
       window.location.href = "/overview";
     }, 2000);

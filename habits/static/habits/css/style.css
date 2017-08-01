@@ -139,12 +139,13 @@ body {
 }
 
 #carousel-input-trigger {
-  width: 200px  ;
+  /*width: 200px  ;*/
   display: inline-block;
   border: none;
   font-size: 16px;
   /*padding-left: 6px;*/
   padding-top: 4px;
+  text-align: inherit;
 }
 
 #carousel-input-trigger:disabled {
@@ -454,6 +455,12 @@ body {
 	list-style-type: none;
   -webkit-padding-start: 0px;
 	margin-top: 31px;
+}
+
+.custom-ul-for-habit-create {
+  list-style-type: none;
+  -webkit-padding-start: 0px;
+  margin-top: 31px;
 }
 
 label, span, input {
