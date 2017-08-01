@@ -1,5 +1,26 @@
 var nameOfImage;
 
+var habitToUpdate = document.getElementById('id_habitToUpdate');
+habitToUpdate.classList.toggle("active");
+//
+// // var otherAccordions = document.getElementsByClassName("accordion");
+// // for (i = 0; i < otherAccordions.length; i++) {        // Disable other accordions
+// //   otherAccordions[i].disabled = true;
+// // }
+var sectionButtonsButtom = document.getElementsByClassName("section-icon-bottom");
+for (i = 0; i <sectionButtonsButtom.length; i++) {   // Disable section buttons at bottom
+  sectionButtonsButtom[i].disabled = true;
+}
+
+var sectionButtonsTop = document.getElementsByClassName("section-icon-top");
+for (i = 0; i <sectionButtonsTop.length; i++) {   // Disable section buttons at bottom
+  sectionButtonsTop[i].disabled = true;
+}
+
+$('#update_habit_img').on("click", function() {
+  $('#edit_file').click();
+});
+
 function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -18,34 +39,29 @@ function readURL(input) {
         }
 }
 
-$('button').prop('disabled', true);
 
 if (typeof(document.getElementById('id_habitToUpdate')) && document.getElementById('id_habitToUpdate') != null) {
-  $('#update-habit-icon').prop('disabled', false);
-  $('.btn-arrow').prop('disabled', false);
   var habitToUpdate = document.getElementById('id_habitToUpdate');
   var habitToUpdate_id = habitToUpdate.parentElement.id;
   sessionStorage.setItem("habitToUpdate_id", habitToUpdate_id);
-  console.log(habitToUpdate_id);
-  // document.getElementById('update_numberOfComments_' + habitToUpdate_id.split('accordion_')[1]).innerHTML = 0;
-  console.log(document.getElementById('numberOfComments_' + habitToUpdate_id));
-
-
-
-
-  habitToUpdate.classList.toggle("active");
-  var panel = habitToUpdate.nextElementSibling;
-  if (panel.style.maxHeight){
-    panel.style.maxHeight = null;
-  } else {
-    // panel.style.maxHeight = panel.scrollHeight + "px";
-    panel.style.maxHeight = 240 + "px";
-  }
-
-  // $('#no-delete-habit-btn').prop('disabled', false);
-
 }
-
+//
+//
+//
+//
+//   habitToUpdate.classList.toggle("active");
+//   var panel = habitToUpdate.nextElementSibling;
+//   if (panel.style.maxHeight){
+//     panel.style.maxHeight = null;
+//   } else {
+//     // panel.style.maxHeight = panel.scrollHeight + "px";
+//     panel.style.maxHeight = 240 + "px";
+//   }
+//
+//   // $('#no-delete-habit-btn').prop('disabled', false);
+//
+// }
+//
 $("#update-habit-icon").click(function(e) {
   console.log('update-habit-icon is fired');
   e.preventDefault();
@@ -108,6 +124,8 @@ $("#update-habit-icon").click(function(e) {
   });
 });
 
+
+// TARGETBEHAVIOR ACTION RIGHT
 function targetbehaviorActionRight_update() {
   console.log('targetbehaviorActionRight is fired!');
   var targetbehaviorInput = document.getElementById('carousel-input-targetbehavior');
@@ -117,6 +135,8 @@ function targetbehaviorActionRight_update() {
   targetbehaviorInput.placeholder = "Neues Zielverhalten";
 }
 
+
+// TARGETBEHAVIOR ACTION LEFT
 function targetbehaviorActionLeft_update() {
   console.log('targetbehaviorActionLeft_update is fired!');
   var isOption = false;
@@ -153,6 +173,7 @@ function targetbehaviorActionLeft_update() {
 }
 
 
+// ROUTINE ACTION RIGHT
 function routineActionRight_update() {
   console.log('routineActionRight is fired!');
   var routineInput = document.getElementById('carousel-input-routine');
@@ -163,6 +184,8 @@ function routineActionRight_update() {
 
 }
 
+
+// ROUTINE ACTION LEFT
 function routineActionLeft_update() {
   console.log('routineActionLeft_update is fired!');
   var myOpts = document.getElementById('select-routines').options;
@@ -199,6 +222,8 @@ function routineActionLeft_update() {
   }
 }
 
+
+// TRIGGER ACTION RIGHT
 function triggerActionRight_update() {
   console.log('triggerActionRight is fired!');
   var triggerInput = document.getElementById('carousel-input-trigger');
@@ -208,6 +233,8 @@ function triggerActionRight_update() {
   triggerInput.placeholder = "Neuer Trigger";
 }
 
+
+// TRIGGER ACTION LEFT
 function triggerActionLeft_update () {
   isOption = false;
   myOpts = document.getElementById('id_trigger').options;

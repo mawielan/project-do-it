@@ -29,3 +29,7 @@
   margin-right: 40px;
   border-radius: 100%;
 }
+
+.custom-row-full-width {
+  width: 100%;
+}
