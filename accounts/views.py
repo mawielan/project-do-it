@@ -18,10 +18,6 @@ from accounts.forms import RegistrationForm, EditProfileForm, UserProfileForm
 from .models import UserProfile
 from habits.models import Habit, Existingroutine, Targetbehavior
 
-
-def test(request):
-    return render(request, 'accounts/test.html')
-
 def home(request):
     return render(request, 'overview/overview.html')
 
