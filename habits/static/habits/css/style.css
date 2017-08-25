@@ -570,32 +570,6 @@ input {
   height: 100%;
 }
 
-#id_mail_body {
-  border: none;
-  outline: none;
-}
-
-#id_mail_from {
-  border: none;
-  outline: none;
-  width: 350px;
-  /*padding-top: 20px;*/
-
-}
-
-#id_mail_to {
-  text-align: left;
-  width: 350px;
-  border: none;
-  outline: none;
-
-}
-
-#id_mail_subject {
-  border: none;
-  outline: none;
-  width: 100%;
-}
 
 #id_mail_send_habit {
   margin-top: 25px;

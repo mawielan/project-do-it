@@ -1,65 +1,147 @@
+
 {% extends 'base.html' %}
 
-{% load staticfiles %}
+
 {% block head %}
-  <link rel="stylesheet" type="text/css" href="{% static 'habits/style.css' %}" />
+
+  {% load staticfiles %}
+  <link rel="stylesheet" type="text/css" href="{% static 'habits/css/style.css' %}" />
+
 {% endblock %}
 
 {% block title %}Overview{% endblock %}
 
-
 {% block body %}
-<div class="container">
-  {% if habits %}
-  {% for habit in habits %}
-  <div id="link-div" class="media">
-    <a id="link-spanner" href="{{habit.get_absolute_url}}"></a>
-    <div id="overview-content" class="media-body">
-      <h4 class="media-heading">{{habit.title}}</h4>
-      <p>{{habit.trigger}}...</p>
-      <p>{{habit.existingroutine}}</p>
-      <p>I will...</p>
-      <p>{{habit.targetbehavior}}</p>
-      {% if habit.triggered_at_date %}
-      <p>Date: {{habit.triggered_at_date}}</p>
-      {% endif %}
-      {% if habit.triggered_at_time %}
-      <p>Time: {{habit.triggered_at_time}}</p>
-      {% endif %}
-    </div>
-    <div class="media-right media-middle">
-      {% if habit.image_url %}
-      <img id="overview-image" class="media-object" src="{{habit.image_url}}" width=100 height=100>
-      {% endif %}
-    </div>
-  </div>
-  <hr>
-  {% endfor %}
-  {% else %}
-  <p>There are no habits.</p>
-  {% endif %}
-  <a class="btn btn-success" id="id_btn_add_habit" href="{% url 'create_habit' %}"><span id="id_glyphicon_add" class="glyphicon glyphicon-plus"></span></a>
-</div>
 
-<!-- <nav class="navbar navbar-default navbar-fixed-bottom  ">
+<div id="section-container">
+  {% if habits %}
+
+  <ul class="sort">
+    {% for habit in habits|dictsort:"priority" %}
+
+    <li id="habit_{{habit.id}}" class="custom-list-item">
+      <button draggable=true id="accordion_{{habit.id}}" class="accordion {% if habit.is_active %} custom-accordion {% else %} custom-accordion-inactive {% endif %}">
+        <div class="media">
+          <div class="media-body">
+            <h4 id="h4-habit-title_{{habit.id}}" class="media-heading custom-media-heading">{{habit.title}}</h4>
+          </div>
+          <div class="media-right media-middle">
+            {% if habit.image_url %}
+            <img id="overview-image" class="media-object" src="{{habit.image_url}}" width=75 height=75>
+            {% endif %}
+          </div>
+        </div>
+      </button>
+      <div id="panel_{{habit.id}}"class="panel">
+        <br>
+        <a href="{% url 'update_habit' habit.pk %}" type="button" class="btn btn-default icon-right" aria-label="Left Align"  {% if habit.is_active != True  %} disabled {% endif %}>
+          <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
+        </a>
+
+        <div class="btn-group icon-right">
+          <button type="button" class="btn btn-default dropdown-toggle icon-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" {% if habit.is_active != True  %} disabled {% endif %}>
+              <i class="fa fa-share-alt fa-2x" aria-hidden="true"></i>
+          </button>
+          <div id="dropdown-menu" class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'tweet_habit' habit.id %}"><i id="share-option" class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+            <a class="dropdown-item" href="{% url 'post_habit' habit.id %}"><i id="share-option" class="fa fa-facebook fa-2x" aria-hidden="true"></i></a>
+            <a class="dropdown-item" href="{% url 'gplus_habit' habit.id %}"><i id="share-option" class="fa fa-google-plus fa-2x" aria-hidden="true"></i></a>
+            <a class="dropdown-item" href="{% url 'mail_habit' habit.id %}"><i id="share-option" class="fa fa-envelope fa-2x" aria-hidden="true"></i></a>
+          </div>
+        </div>
+        <p class="custom-font-size-20-bold">{{habit.trigger}}</p>
+        <p class="custom-font-size-17">&nbsp&nbsp&nbsp&nbsp{{habit.existingroutine}}</p>
+        <!-- <p class="custom-font-size-20-bold">I will...</p> -->
+        <p class="custom-font-size-17">&nbsp&nbsp&nbsp&nbsp{{habit.targetbehavior}}</p>
+
+        <br>
+        <br>
+
+        <!-- Section for further activities
+          * Delete habit nugget
+          * Activate/deactivate habit nugget
+          * Show comments for habit nugget
+          * Post comment for habit nugget -->
+        <div class="row" style="margin-top: 30px;">
+          <!-- <div class="col-xs-1">
+          </div> -->
+          <div class="col-xs-3">
+            <a id="section-icon-bottom" class="btn btn-default" aria-label="Left Align" href="{% url 'delete_habit' habit.pk %}">
+              <i class="fa fa-trash fa-2x" aria-hidden="true"></i>
+            </a>
+          </div>
+          <div class="col-xs-3">
+            <button onclick="setState({{habit.id}})" id="section-icon-bottom-toggle_{{habit.id}}" type="button" class="btn btn-default section-icon-bottom-toggle" aria-label="Left Align">
+              {% if habit.is_active %}
+              <i class="fa fa-toggle-on fa-2x" aria-hidden="true"></i>
+              {% else %}
+              <i class="fa fa-toggle-off fa-2x" aria-hidden="true"></i>
+              {% endif %}
+            </button>
+          </div>
+          <div class="col-xs-3">
+            <button onclick="displayComments({{habit.id}})" id="section-icon-bottom-displayComments" type="button" class="btn btn-default" aria-label="Left Align"  {% if habit.is_active != True  %} disabled {% endif %}>
+              <i class="fa fa-comments fa-2x" aria-hidden="true"></i>
+              <span id="numberOfComments_{{habit.id}}" class="badge"></span>
+            </button>
+          </div>
+          <div class="col-xs-3">
+            <button  onclick="displayAddComment({{habit.id}})" id="section-icon-bottom-addComment" type="button" class="btn btn-default" aria-label="Left Align"  {% if habit.is_active != True  %} disabled {% endif %}>
+              <i class="fa fa-comment fa-2x" aria-hidden="true"></i>
+            </button>
+          </div>
+          <!-- <div class="col-xs-2">
+          </div> -->
+        </div>
+
+        <!-- <div class="container" style="display:inline">
+          <div id="section-row" class="row">
+            <div class="col">
+              <a id="section-icon-bottom" class="btn btn-default" aria-label="Left Align" href="{% url 'delete_habit' habit.pk %}">
+                <i class="fa fa-trash fa-2x" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div class="col">
+              <button id="section-icon-bottom-toggle" type="button" class="btn btn-default" aria-label="Left Align">
+                {% if habit.is_active %}
+                <i class="fa fa-toggle-on fa-2x" aria-hidden="true"></i>
+                {% else %}
+                <i class="fa fa-toggle-off fa-2x" aria-hidden="true"></i>
+                {% endif %}
+              </button>
+            </div>
+            <div class="col">
+              <button id="section-icon-bottom-displayComments" type="button" class="btn btn-default" aria-label="Left Align"  {% if habit.is_active != True  %} disabled {% endif %}>
+                <i class="fa fa-comments fa-2x" aria-hidden="true"></i>
+                <span id="numberOfComments_{{habit.id}}" class="badge"></span>
+              </button>
+            </div>
+            <div class="col">
+              <button id="section-icon-bottom-addComment" type="button" class="btn btn-default" aria-label="Left Align"  {% if habit.is_active != True  %} disabled {% endif %}>
+                <i class="fa fa-comment fa-2x" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div> -->
+
+      </div> <!-- end panel -->
+      <div style="min-height: 140px" id="panel2_{{habit.id}}"class="panel" hidden></div>
+
+    </li>
+
+    {% endfor %}
+  </ul>
+  {% else %}
   <div class="container">
-    <ul class="nav nav-pills nav-justified custom-navpills-bottom">
-      <li role="navigation">
-        <a  href="settings/">
-          <span class="glyphicon glyphicon-cog custom-navbar-glyphicon"></span>
-        </a>
-      </li>
-      <li role="navigation">
-        <a href="{% url 'manage_habits' %}">
-          <span class="glyphicon glyphicon-list custom-navbar-glyphicon "></span>
-        </a>
-      </li>
-      <li role="navigation">
-        <a href="{% url 'create_habit' %}">
-        <span class="glyphicon glyphicon-plus custom-navbar-glyphicon"></span>
-      </a>
-      </li>
-    </ul>
+    <h3 style="margin-top: 100px; text-align:center;">Es sind noch keine Verhaltensnuggets erstellt worden.</h3>
   </div>
-</nav> -->
+
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block script %}
+  <script type="text/javascript" src="{% static 'habits/js/script.js' %}"></script>
+  <script type="text/javascript" src="{% static 'habits/js/comment-habit.js' %}"></script>
+
 {% endblock %}

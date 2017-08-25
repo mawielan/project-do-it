@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% block head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/style_disable_account.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/style.css' %}" />
+{% endblock %}
+
+{% block body %}
+<div class="row" style="margin-top: 60px;margin-right:auto;margin-left:auto;">
+  <p style="text-align:center; font-weight:bold;">
+    <!--   Are you sure you want to deactivate your account? You won't log in to your
+      user account anymore. For Reactivation please refer to the admin. -->
+    Sind sie sicher, dass sie ihren Account deaktivieren möchten? Danach werden
+    sie sich nicht mehr in ihren Account einloggen können. Für eine Reaktivierung
+    wenden sie sich bitte an den Administrator.
+  </p>
+</div>
+<br>
+<form action="{% url 'disable_account_confirm' %}" method="post">
+  {% csrf_token %}
+  <div class="row" style="width:100%;" >
+    <div class="col-xs-1"></div>
+    <div class="col-xs-6"><input class="btn btn-danger" type="submit" value="Ja, ich bin mir sicher." /></div>
+    <div class="col-xs-4"><a  href="{% url 'view_profile' %}" class="btn btn-default">Zurück</a></div>
+
+  </div>
+</form>
+
+{% endblock %}

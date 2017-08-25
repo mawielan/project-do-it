@@ -1,0 +1,45 @@
+body {
+  background-color: #0080FF;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: black;
+  height: 4px;
+  margin-top: 3px;
+}
+
+.custom-span-mail-from {
+  width: 51px;
+  border:none;
+}
+
+.custom-span-mail-to {
+  width: 51px;
+  border:none;
+}
+
+#id_mail_to {
+  height:28px;
+  width:170px;
+  text-align: center;
+  border:none;
+}
+
+#id_mail_from {
+  height:28px;
+  width:170px;
+  text-align: center;
+  border: none;
+}
+
+#id_mail_subject {
+  height: 28px;
+  width: 221px;
+  border: none;
+  text-align: center;
+}
+
+#id_mail_body {
+  border: none;
+  outline: none;
+}

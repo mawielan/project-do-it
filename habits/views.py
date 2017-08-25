@@ -329,7 +329,7 @@ def display_habitToCreate(request):
     template_args = {'form':form, 'habits':habits,
                     'routines':existingroutines,
                     'targetbehaviors': targetbehaviors}
-    return render(request, 'habits/display_habitToCreate.html', template_args)
+    return render(request, 'habits/display_habit_to_create.html', template_args)
     # if(request.method == 'POST'):
     #     print('create_habit_post')
     #     habits = Habit.objects.filter(created_by=request.user.userprofile, is_active=True)
@@ -383,6 +383,7 @@ def display_habitToCreate(request):
     # else:
     #     return render(request, 'habits/create_habit_newVersion.html')
 
+#TODO: wird diese Methode benutzt?
 def edit_habit(request):
     if request.method == 'POST':
         habits = Habit.objects.filter(created_by=request.user.userprofile, is_active=True)
@@ -396,19 +397,6 @@ def edit_habit(request):
     #Get goes here
     return render(request, 'habits/display_habitToCreate.html')
 
-
-
-# def display_habit_details(request, id=None):
-#     habit = Habit.objects.get(id=id)
-#     template_args = { 'habit' : habit }
-#     request.session['habit_id'] = habit.id
-#     return render(request, 'habits/display_habit_detail.html', template_args)
-
-# def display_habits(request):
-#     habits = Habit.objects.filter(created_by=request.user.userprofile)
-#
-#     template_args = { 'habits' : habits}
-#     return render(request, 'habits/display_habits_newVersion.html', template_args)
 
 def tweet_habit(request, id):
     habit = Habit.objects.get(id=id)
@@ -445,7 +433,7 @@ def mail_habit(request, id):
             request.POST['mail_from'],
             [request.POST['mail_to']]
             )
-        return redirect('display_habit_details', pk=habit.id)
+        return redirect('display_habits')
     else:
         body_text = ('HI THERE! '
                     '\n'
@@ -455,7 +443,7 @@ def mail_habit(request, id):
         form = SendMailForm(initial={'mail_from':request.user.email, 'mail_body':body_text})
 
     template_args = {'form': form }
-    return render(request, 'habits/send_habit.html', template_args )
+    return render(request, 'habits/display_habit_to_send.html', template_args )
 
 
 
@@ -556,7 +544,7 @@ def locate_position(request):
 class HabitListView(ListView):
     model = Habit
     context_object_name = 'habits'   # your own name for the list as a template variable
-    template_name = 'habits/display_habits_newVersion.html'  # Specify your own template name/location
+    template_name = 'habits/display_habits.html'  # Specify your own template name/location
 
     def get_queryset(self):
         print('get_queryset_HabitListView')
@@ -703,7 +691,7 @@ class HabitDetailView(DetailView):
 class HabitUpdateView(UpdateView):
     model = Habit
     form_class = HabitUpdateForm
-    template_name = 'habits/display_habitToUpdate.html'
+    template_name = 'habits/display_habit_to_update.html'
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -717,10 +705,9 @@ class HabitUpdateView(UpdateView):
         return context
 
 class HabitDeleteView(DeleteView):
-    # template_name = 'habits/display_habits_newVersion.html'
     model = Habit
     context_object_name = 'habits'
-    template_name = 'habits/habit_confirm_delete.html'
+    template_name = 'habits/display_habit_to_delete_confirm.html'
     # success_url = reverse_lazy('display_habits')
     def get_queryset(self):
         print('get_queryset_HabitDeleteView')
@@ -740,50 +727,6 @@ class HabitDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('display_habits')
-
-
-class ManageHabits(TemplateView):
-    template_name = 'habits/manage_habits.html'
-
-    def get(self, request):
-        print('getFuction')
-
-        form_collection = {}
-
-        habits = Habit.objects.filter(created_by=request.user.userprofile)
-
-        for habit in habits:
-            form = HabitToManageForm(instance=habit)
-            form_collection[habit.title] = form
-
-        form = HabitToManageForm()
-
-        print(form_collection)
-        return render(request, self.template_name, {'forms': form_collection , 'habits':habits})
-
-    def post(self, request):
-        print('postFuction')
-        print(request.POST)
-        form_collection = {}
-        habit_update_list = request.POST.getlist('is_active')
-        print(habit_update_list)
-        habits = Habit.objects.filter(created_by=request.user.userprofile)
-
-        i = 0
-        for habit in habits:
-
-            print('I: ' + str(i))
-            form = HabitToManageForm(request.POST, instance=habit)
-            if form.is_valid():
-                habit = form.save(commit=False)
-                habit.is_active = habit_update_list[i]
-                print(habit)
-                habit.save()
-
-            else:
-                print('Error while check if form is valid')
-            i += 1
-        return redirect('manage_habits')
 
 
     # Existing routine

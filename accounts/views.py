@@ -204,21 +204,32 @@ def view_profile(request, pk=None):
         user = request.user
 
     args = {'user': user}
-    return render(request, 'accounts/profile.html', args)
-
+    return render(request, 'accounts/display_profile.html', args)
 
 def edit_profile(request):
-    print('edit_profile')
+    print('edit_profile is fired!')
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, instance=request.user)
-
+        form = EditProfileForm(request.POST, request.FILES or None, instance=request.user)
+        print(request.POST)
+        print(request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect('/account/profile')
+            user = form.save(commit=False)
+            user.userprofile.city = request.POST['city']
+            user.userprofile.website = request.POST['website']
+            user.userprofile.phone = request.POST['phone']
+            user.userprofile.save()
+            user.save()
+            upload_profile_image(request)
+
+
+        return redirect('/account/profile/edit')
     else:
         form = EditProfileForm(instance=request.user)
         args = {'form':form}
-        return render(request, 'accounts/edit_profile.html', args)
+        return render(request, 'accounts/display_profile_update.html', args)
+
+
+
 
 def upload_profile_image(request):
     print('upload_profile_image')
@@ -247,7 +258,7 @@ def disable_account_confirm(request):
         user.save()
         return redirect(settings.LOGIN_URL)
     else:
-        return render(request, 'accounts/disable_account_confirm.html')
+        return render(request, 'accounts/display_account_disable_confirm.html')
 
 
 

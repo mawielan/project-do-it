@@ -4,6 +4,63 @@
   margin-top: 3px;
 }
 
-#profile-image {
-  padding-top: 30px;
+body {
+  background-color: #0080FF;
+}
+
+#id_btn_disable_account {
+  border-radius:15px;
+  width: 100%;
+  font-weight: bold;
+}
+
+#id_btn_change_profile {
+  border-radius:15px;
+  width: 100%;
+  font-weight: bold;
+}
+
+#profile_image {
+  width: 90px;
+  height: 90px;
+}
+
+#id_first_name {
+  width: 125px;
+  background-color: transparent;
+  border: none;
+}
+
+#id_last_name {
+  width: 125px;
+  background-color: transparent;
+  border: none;
+}
+
+#id_email {
+  width: 180px;
+  background-color: transparent;
+  border: none;
+}
+
+#id_city {
+  width: 140px;
+  background-color: transparent;
+  border: none;
+}
+
+#id_phone {
+  width: 140px;
+  background-color: transparent;
+  border: none;
+}
+
+#id_website {
+  width: 140px;
+  background-color: transparent;
+  border: none;
+}
+
+p {
+  font-weight: bold;
 }

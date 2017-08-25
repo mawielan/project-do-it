@@ -15,10 +15,12 @@ class RegistrationForm(UserCreationForm):
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
 
 class EditProfileForm(UserChangeForm):
-
+    image = forms.ImageField(required=False)
     class Meta:
         model = User
-        fields = ( 'first_name', 'last_name', 'email', 'password',)
+        fields = {
+            'first_name', 'last_name', 'email', 'password', 'image'
+        }
 
 class UserProfileForm(forms.ModelForm):
 

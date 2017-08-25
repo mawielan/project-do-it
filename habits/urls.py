@@ -9,7 +9,7 @@ urlpatterns = [
 
     url(r'^position/$', habits_views.locate_position, name='locate_position'),
 
-    
+
 
     url(r'^habit/(?P<pk>\d+)$', habits_views.HabitDetailView.as_view(), name='display_habit_details'),
     url(r'^habit/(?P<pk>\d+)/update$', habits_views.HabitUpdateView.as_view(), name='update_habit'),
@@ -40,7 +40,7 @@ urlpatterns = [
     url(r'^habit/edit/$', habits_views.edit_habit, name='edit_habit'),
 
 
-    url(r'^habitmanagement/$', habits_views.ManageHabits.as_view(), name='manage_habits'),
+
 
     url(r'^existingroutines/$', habits_views.display_existing_routines, name='display_existing_routines'),
     url(r'^existingroutines/create/$', habits_views.create_existing_routine, name='create_existing_routine'),
