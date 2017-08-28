@@ -86,9 +86,16 @@ $("#update-habit-icon").click(function(e) {
   console.log(nameOfImage);
 
   // Get type of image
-  type = document.getElementById('update_habit_img').src.split('data:image/');
-  type = type[1].split(';');
-  console.log(type[0]);
+  // type = document.getElementById('update_habit_img').src.split('data:image/');
+  // console.log(type);
+  // if (type == undefined) {
+  //   type = null;
+  // } else {
+  //   type = type[1].split(';');
+  //   console.log(type[0]);
+  // }
+  type = null;
+
 
  // //This is the Ajax post.Observe carefully. It is nothing but details of where_to_post,what_to_post
   $.ajax({
@@ -102,7 +109,7 @@ $("#update-habit-icon").click(function(e) {
                 habit_targetbehavior : habit_targetbehavior,
                 habit_image : habit_image,
                 image_name : nameOfImage,
-                image_type : type[0],
+                image_type : type,
 
       }, // data sent with the post request
 

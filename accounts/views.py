@@ -222,7 +222,7 @@ def edit_profile(request):
             upload_profile_image(request)
 
 
-        return redirect('/account/profile/edit')
+        return redirect('/account/profile')
     else:
         form = EditProfileForm(instance=request.user)
         args = {'form':form}
@@ -259,25 +259,3 @@ def disable_account_confirm(request):
         return redirect(settings.LOGIN_URL)
     else:
         return render(request, 'accounts/display_account_disable_confirm.html')
-
-
-
-
-def change_password(request):
-    print('change_password')
-
-    if request.method == 'POST':
-        form = PasswordChangeForm(data=request.POST, user=request.user)
-
-        if form.is_valid():
-            form.save()
-            update_session_auth_hash(request, form.user)
-            return redirect('/account/profile')
-
-        else:
-            return redirect('/account/profile/edit/change_password')
-
-    else:
-        form = PasswordChangeForm(user=request.user)
-        args = {'form':form}
-        return render(request, 'accounts/change_password.html', args)

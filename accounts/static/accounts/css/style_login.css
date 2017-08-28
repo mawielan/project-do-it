@@ -4,6 +4,12 @@ body {
   background-color: #E0ECF8;
 }
 
+input {
+  padding-top: 2px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
 input[type="text"]{
     border-radius:10px;
     -moz-border-radius:10px;
@@ -66,4 +72,6 @@ input[type="password"]:focus{
 .login-alternatives {
   color: #0080FF;
   font-size: 10px;
+  font-weight: bold;
+  font-family: monospace;
 }

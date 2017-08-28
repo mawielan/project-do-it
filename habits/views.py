@@ -58,38 +58,7 @@ def create_habit(request):
 
     return render(request, 'habits/create_habit.html', {'form':form})
 
-# def markdown_uploader(request):
-#     """
-#     Makdown image upload for locale storage
-#     and represent as json to markdown editor.
-#     """
-#     if request.method == 'POST' and request.is_ajax():
-#         if 'markdown-image-upload' in request.FILES:
-#             image = request.FILES['image']
-#             image_types = [
-#                 'image/png', 'image/jpg',
-#                 'image/jpeg', 'image/pjpeg', 'image/gif'
-#             ]
-#             if image.content_type not in image_types:
-#                 data = json.dumps({
-#                     'status': 405,
-#                     'error': _('Bad image format.')
-#                 })
-#                 return HttpResponse(
-#                     data, content_type="application/json", status=405)
-#
-#             tmp_file = os.path.join(settings.UPLOAD_PATH, image.name)
-#             path = default_storage.save(tmp_file, ContentFile(image.read()))
-#             img_url = os.path.join(settings.MEDIA_URL, path)
-#
-#             data = json.dumps({
-#                 'status': 200,
-#                 'link': img_url,
-#                 'name': image.name
-#             })
-#             return HttpResponse(data, content_type='application/json')
-#         return HttpResponse(_('Invalid request!'))
-#     return HttpResponse(_('Invalid request!'))
+
 
 def upload_habit_image(request):
     print('upload_habit_image is fired!')
@@ -314,8 +283,6 @@ def get_comments(request):
             return JsonResponse(data, safe=False)
 
 
-
-
 def display_habitToCreate(request):
     print('display_habitToCreate is fired!')
     habits = Habit.objects.filter(created_by=request.user.userprofile)
@@ -330,73 +297,6 @@ def display_habitToCreate(request):
                     'routines':existingroutines,
                     'targetbehaviors': targetbehaviors}
     return render(request, 'habits/display_habit_to_create.html', template_args)
-    # if(request.method == 'POST'):
-    #     print('create_habit_post')
-    #     habits = Habit.objects.filter(created_by=request.user.userprofile, is_active=True)
-    #     if request.is_ajax():
-    #
-    #         for habit in habits:
-    #             habit.priority += 1;
-    #             habit.save();
-    #
-    #         habit = Habit(title="HabitAjax", created_by=request.user.userprofile, image="habit_image/no_image_placeholder.png")
-    #         habit.save()
-    #
-    #         data = {"habit_title":habit.title,
-    #                 "habit_id":habit.id}
-    #         return JsonResponse(data)
-    #
-    #     form = HabitCreateForm(request.POST or None, request.FILES or None)
-    #     if form.is_valid():
-    #
-    #         habit = form.save(commit=False)
-    #         habit.created_by = request.user.userprofile
-    #         # habit.triggered_at_date = request.POST['date']
-    #         # habit.triggered_at_time = request.POST['time']
-    #         habit.save()
-    #         # request.session.pop('selected_routine_id', None)
-    #         # request.session.pop('selected_targetbehavior_id', None)
-    #         return redirect('display_habits')
-    # else:
-    #     print('create_habit_get')
-    #     form = HabitCreateForm(request.POST or None)
-
-    # template_args = {'form':form, 'habits':habits,
-    #                 'routines':existingroutines,
-    #                 'targetbehaviors': targetbehaviors}
-    # return render(request, 'habits/create_habit_newVersion.html', template_args)
-    # if request.method == 'POST':
-    #     habits = Habit.objects.filter(created_by=request.user.userprofile, is_active=True)
-    #
-    #     if request.is_ajax():
-    #
-    #         for habit in habits:
-    #             habit.priority += 1;
-    #             habit.save();
-    #
-    #         habit = Habit(title="HabitAjax", created_by=request.user.userprofile, image="habit_image/no_image_placeholder.png")
-    #         habit.save()
-    #
-    #         data = {"habit_title":habit.title,
-    #                 "habit_id":habit.id}
-    #         return JsonResponse(data)
-    # else:
-    #     return render(request, 'habits/create_habit_newVersion.html')
-
-#TODO: wird diese Methode benutzt?
-def edit_habit(request):
-    if request.method == 'POST':
-        habits = Habit.objects.filter(created_by=request.user.userprofile, is_active=True)
-
-        if request.is_ajax():
-
-            testNote = "Success!";
-
-            data = {"testNote":testNote}
-            return render(request, 'habits/create_habit_newVersion.html')
-    #Get goes here
-    return render(request, 'habits/display_habitToCreate.html')
-
 
 def tweet_habit(request, id):
     habit = Habit.objects.get(id=id)

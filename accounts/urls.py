@@ -20,6 +20,6 @@ urlpatterns = [
     url(r'^profile/edit/$', accounts_views.edit_profile, name='edit_profile'),
     url(r'^profile/disable_account/confirm/$', accounts_views.disable_account_confirm, name='disable_account_confirm'),
 
-    url(r'^profile/edit/change_password/$', accounts_views.change_password, name='change_password'),
+    # url(r'^profile/edit/change_password/$', accounts_views.change_password, name='change_password'),
 
 ]
