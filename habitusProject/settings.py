@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['141.7.66.175', 'localhost']
 
-
+DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
 
 # Application definition
 
