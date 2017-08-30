@@ -124,8 +124,12 @@ def update_habit_complete(request):
             print(habit_image)
             habit_image = habit_image.split('base64,', 1 )
             print(habit_image)
-            habit_image = base64.b64decode(habit_image[1])
-            image_name = request.POST.get('image_name')
+            if (len(habit_image) > 1):
+                habit_image = base64.b64decode(habit_image[1])
+                image_name = request.POST.get('image_name')
+            else:
+                habit_image = None
+                image_name = None
 
 
             #
@@ -170,11 +174,13 @@ def update_habit_complete(request):
             # check if habit has already an image
             print(obj_habit.image)
 
-            if (obj_habit.image):
-                obj_habit.image.delete(save=True)
+            if (habit_image != None and image_name != None):
+
+                if (obj_habit.image):
+                    obj_habit.image.delete(save=True)
 
 
-            obj_habit.image = ContentFile(habit_image, image_name)
+                obj_habit.image = ContentFile(habit_image, image_name)
 
 
             obj_habit.save();
@@ -203,11 +209,19 @@ def save_habit(request):
             habit_routine = request.POST.get('habit_routine')
             habit_targetbehavior = request.POST.get('habit_targetbehavior')
             habit_imageBase64Decode = request.POST.get('habit_image')
-            # print(habit_image)
+
+            print(habit_imageBase64Decode)
             habit_imageSplit = habit_imageBase64Decode.split('base64,', 1 )
-            # print(habit_image)
-            habit_image = base64.b64decode(habit_imageSplit[1])
-            image_name = request.POST.get('habit_image_name')
+            print(habit_imageSplit)
+
+            if (len(habit_imageSplit) != 1):
+                habit_image = base64.b64decode(habit_imageSplit[1])
+                image_name = request.POST.get('habit_image_name')
+            else:
+                habit_image = None
+                image_name = None
+
+
 
             try:
                 obj_routine = Existingroutine.objects.get(name=habit_routine, created_by=request.user.userprofile)
@@ -234,7 +248,9 @@ def save_habit(request):
             obj_habit.trigger = habit_trigger;
             obj_habit.existingroutine = obj_routine;
             obj_habit.targetbehavior = obj_targetbehavior;
-            obj_habit.image = ContentFile(habit_image, image_name)
+
+            if habit_image != None and image_name != None:
+                obj_habit.image = ContentFile(habit_image, image_name)
 
             # habit = Habit(created_by=request.user.userprofile, is_active=True,
             # title=habit_title, trigger=habit_trigger, existingroutine=obj_routine,

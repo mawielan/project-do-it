@@ -30,14 +30,14 @@
       {% if habit.id == habitToDelete.id %}
       <div id="panel_{{habit.id}}"class="panel">
         <div class="container">
-          <h2>Are your sure?</h2>
+          <br>
           <p>
-            Are you sure you want to delete habit: "{{ habit.title }}"?
+           Sind sie sicher, dass sie das Verhaltensnugget "{{ habit.title }}" löschen möchten?
           <form method="post">
             {% csrf_token %}
             <div id="{{habitToDelete.id}}">
-              <input id="delete-habit-btn" class="btn btn-danger" type="submit" value="Yes, I'm sure" />
-              <button type="button" onclick="takeMeToOverview()" id="no-delete-habit-btn" class="btn btn-default">No, take me back</button>
+              <input id="delete-habit-btn" class="btn btn-danger" type="submit" value="Ja, ich bin mir sicher" />
+              <button type="button" onclick="takeMeToOverview()" id="no-delete-habit-btn" class="btn btn-default">Zurück</button>
             </div>
           </form>
         </div>
