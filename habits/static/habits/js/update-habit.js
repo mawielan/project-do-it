@@ -139,7 +139,7 @@ function targetbehaviorActionRight_update() {
   targetbehaviorInput.disabled = false;
   targetbehaviorInput.focus();
   targetbehaviorInput.value = "";
-  targetbehaviorInput.placeholder = "Neues Zielverhalten";
+  targetbehaviorInput.placeholder = "Neues Zielverhalten erstellen";
 }
 
 
@@ -187,7 +187,7 @@ function routineActionRight_update() {
   routineInput.disabled = false;
   routineInput.focus();
   routineInput.value = "";
-  routineInput.placeholder = "Neue Routine";
+  routineInput.placeholder = "Neue Routine erstellen";
 
 }
 

@@ -123,7 +123,7 @@ function routineActionRight() {
   routineInput.disabled = false;
   routineInput.focus();
   routineInput.value = "";
-  routineInput.placeholder = "Neue Routine";
+  routineInput.placeholder = "Neue Routine erstellen";
 
 }
 
@@ -173,7 +173,7 @@ function targetbehaviorActionRight() {
   targetbehaviorInput.disabled = false;
   targetbehaviorInput.focus();
   targetbehaviorInput.value = "";
-  targetbehaviorInput.placeholder = "Neues Zielverhalten";
+  targetbehaviorInput.placeholder = "Neues Zielverhalten erstellen";
 }
 
 // Create new habit

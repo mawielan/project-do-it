@@ -351,11 +351,11 @@ def mail_habit(request, id):
             )
         return redirect('display_habits')
     else:
-        body_text = ('HI THERE! '
+        body_text = ('Hallo! '
                     '\n'
-                    'I\'m working currently on this habit: ' + habit.title +
+                    'Ich arbeite gerade an dem Verhaltensnugget: ' + habit.title +
                     '\n'
-                    'Have a nice day :) ')
+                    'Schönen Tag noch :) ')
         form = SendMailForm(initial={'mail_from':request.user.email, 'mail_body':body_text})
 
     template_args = {'form': form }
