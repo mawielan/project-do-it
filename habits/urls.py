@@ -37,7 +37,7 @@ urlpatterns = [
     url(r'^habit/save/$', habits_views.save_habit, name='save_habit'),
     # url(r'^habit/markdown_uploader/$', habits_views.markdown_uploader, name='markdown_uploader_page'),
     url(r'^habit/upload_habit_image/$', habits_views.upload_habit_image, name='upload_habit_image'),
-    # url(r'^habit/edit/$', habits_views.edit_habit, name='edit_habit'),
+    # url(r'^habit/edit/$', habits_views.edit_habit,     name='edit_habit'),
 
 
 

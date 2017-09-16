@@ -25,7 +25,7 @@ SECRET_KEY = 'c6@%+3c^uarg!nw_y^bfa4=_urlh5ji8%%sgk36(&l!1gbz)m3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['141.7.66.175', 'localhost']
+ALLOWED_HOSTS = ['141.7.66.175', 'localhost', '0.0.0.0', '192.168.178.118', '127.0.0.1', '192.168.178.181']
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
 

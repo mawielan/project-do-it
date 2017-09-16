@@ -1,13 +1,17 @@
+var isSortable = false;
+
 // Sort & save order of habits
 $(function () {
     $('.sort').sortable({
         handle: 'button',
         cancel: '',
         update: function(event, ui) {
+          isSortable = true;
+          console.log('isSortable' + isSortable);
           var result = $(this).sortable( "serialize", {key: event.target.id});
           console.log('RESULT');
           console.log(result);
-          // TODO: inaktive habits von result rausschmeißen
+          // TODO:   inaktive habits von result rausschmeißen
           // alert(result);
 
           var csrftoken = getCookie('csrftoken');
@@ -23,6 +27,7 @@ $(function () {
           // handle a successful response
           success : function(json) {
                console.log(json); // another sanity check
+               isSortable = false;
                //On success show the data posted to server as a message
 
               //  alert('Your list '+json['result']);
