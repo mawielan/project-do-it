@@ -3,7 +3,15 @@ var $accordions = $('.accordion');
 
 
 var acc = document.getElementsByClassName("accordion");
-
+var active_habit_id = {
+  habitVal: 0,
+  get habit() {
+    return this.habitVal;
+  },
+  set habit(val) {
+    this.habitVal = val;
+  }
+}
 var i;
 var isAddCommentModeActive = false;
 var isDisplayCommentsModeActive = false;
@@ -25,6 +33,10 @@ forEach.call(items, function(item) {
     console.log(event);
     console.log(event.target.id);
     console.log(item.id);
+    split_id = item.id.split("_");
+    active_habit_id.habit =  split_id[1];
+    console.log('active_habit_id: ' + active_habit_id.habit);
+
     item.classList.toggle("active");
     var panel = item.nextElementSibling;
     if (panel.style.maxHeight) { // If panel is open
@@ -34,8 +46,8 @@ forEach.call(items, function(item) {
 
       for (j = 0; j < sessionStorage.length; j++) {
         console.log(sessionStorage.key(j));
-        if (sessionStorage.key(j) == this.id) {
-          sessionStorage.removeItem(this.id);
+        if (sessionStorage.key(j) == item.id) {
+          sessionStorage.removeItem(item.id);
         }
       }
       panel.style.maxHeight = null;
@@ -51,7 +63,7 @@ forEach.call(items, function(item) {
 
     } else { // If panel is closed
       console.log('Panel wird geöffnet.')
-      sessionStorage.setItem(this.id, this.id);
+      sessionStorage.setItem(item.id, item.id);
       var csrftoken = getCookie('csrftoken');
 
       $.ajax({

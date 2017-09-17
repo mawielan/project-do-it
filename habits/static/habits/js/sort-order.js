@@ -3,7 +3,13 @@ var isSortable = false;
 // Sort & save order of habits
 $(function () {
     $('.sort').sortable({
+        axis: 'y',
         handle: 'button',
+        revert: 'true',
+        containment: 'parent',
+        tolerance: 'pointer',
+        items: 'li:not(.non-sortable)',
+        // cancel: '.custom-accordion-inactive',
         cancel: '',
         update: function(event, ui) {
           isSortable = true;

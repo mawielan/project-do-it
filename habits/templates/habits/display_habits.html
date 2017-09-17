@@ -20,7 +20,7 @@
   <ul class="sort">
     {% for habit in habits|dictsort:"priority" %}
 
-    <li id="habit_{{habit.id}}" class="custom-list-item">
+    <li id="habit_{{habit.id}}" class="custom-list-item {% if habit.is_active %}  {% else %} non-sortable {% endif %}">
       <button draggable=true id="accordion_{{habit.id}}" class="accordion {% if habit.is_active %} custom-accordion {% else %} custom-accordion-inactive {% endif %}">
         <div class="media">
           <div class="media-body">
@@ -72,7 +72,7 @@
             </a>
           </div>
           <div class="col-xs-3">
-            <button onclick="setState({{habit.id}})" id="section-icon-bottom-toggle_{{habit.id}}" type="button" class="btn btn-default section-icon-bottom-toggle" aria-label="Left Align">
+            <button id="section-icon-bottom-toggle_{{habit.id}}" type="button" class="btn btn-default section-icon-bottom-toggle" aria-label="Left Align">
               {% if habit.is_active %}
               <i class="fa fa-toggle-on fa-2x" aria-hidden="true"></i>
               {% else %}
