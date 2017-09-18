@@ -63,7 +63,7 @@
           * Activate/deactivate habit nugget
           * Show comments for habit nugget
           * Post comment for habit nugget -->
-        <div class="row" style="margin-top: 30px;">
+        <div class="row" style="height: 100px">
           <!-- <div class="col-xs-1">
           </div> -->
           <div class="col-xs-3">
@@ -81,13 +81,13 @@
             </button>
           </div>
           <div class="col-xs-3">
-            <button onclick="displayComments({{habit.id}})" id="section-icon-bottom-displayComments" type="button" class="btn btn-default" aria-label="Left Align"  {% if habit.is_active != True  %} disabled {% endif %}>
+            <button id="section-icon-bottom-displayComments_{{habit.id}}" type="button" class="btn btn-default section-icon-bottom-displayComments" aria-label="Left Align"  {% if habit.is_active != True  %} disabled {% endif %}>
               <i class="fa fa-comments fa-2x" aria-hidden="true"></i>
               <span id="numberOfComments_{{habit.id}}" class="badge"></span>
             </button>
           </div>
           <div class="col-xs-3">
-            <button  onclick="displayAddComment({{habit.id}})" id="section-icon-bottom-addComment" type="button" class="btn btn-default" aria-label="Left Align"  {% if habit.is_active != True  %} disabled {% endif %}>
+            <button id="section-icon-bottom-addComment_{{habit.id}}" type="button" class="btn btn-default section-icon-bottom-addComment" aria-label="Left Align"  {% if habit.is_active != True  %} disabled {% endif %}>
               <i class="fa fa-comment fa-2x" aria-hidden="true"></i>
             </button>
           </div>
