@@ -135,8 +135,8 @@ $(document).ready(function() {
               tableString += "<thead>";
               tableString += "<tr>";
               tableString += "<th>#</th>";
-              tableString += "<th>Date</th>";
-              tableString += "<th>Comment</th>";
+              tableString += "<th>Datum</th>";
+              tableString += "<th>Kommentar</th>";
               tableString += "</tr>";
               tableString += "</thead>";
 
@@ -218,7 +218,7 @@ $(document).ready(function() {
         panel.style.marginBottom = 1 + "px";
         var panel2 = panel.nextElementSibling;
 
-        panel2.innerHTML = '<textarea id="comment-textarea" style="border-color: black; display:block;  margin-top: 5px; margin-left: auto; margin-right: auto;" rows="4" cols="35" placeholder="Write your Comment... "></textarea> ';
+        panel2.innerHTML = '<textarea id="comment-textarea" style="border-color: black; display:block;  margin-top: 5px; margin-left: auto; margin-right: auto;" rows="4" cols="35" placeholder="Schreibe dein Kommentar... "></textarea> ';
         panel2.innerHTML += '<div class="container">';
         panel2.innerHTML += '  <button id="section-icon-bottom" type="button" class="btn btn-default" aria-label="Left Align">';
         panel2.innerHTML += '    <i class="fa fa-file-image-o" aria-hidden="true"></i>';
